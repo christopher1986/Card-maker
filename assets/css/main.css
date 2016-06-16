@@ -1,0 +1,84 @@
+/*
+** General
+*/
+img {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+/*
+** Row
+*/       
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+.row:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.row .column { 
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+/*
+** Cardmaker
+ */
+.cardmaker-container {
+    margin: 0;
+    padding: 0;
+}
+
+.cardmaker-container .col-canvas {
+    padding-right: 10px;
+    width: 1200px; 
+    height: 600px; 
+    overflow: scroll;
+}
+
+.cardmaker-container .col-right {
+    padding-left: 10px;
+}
+
+/*
+** Layer list
+ */
+.layer-list {
+    margin: 0;
+    padding: 0;
+}
+
+.layer-list .list-item {
+    margin: 0;
+    padding: 0;
+}
+
+.layer-list .list-item .column {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.layer-list .list-item .col-image {
+    padding-right: 10px;
+    max-width: 100px;
+}
+
+.layer-list .list-item .col-image img {
+    border: 1px solid black;
+}
+
+.layer-list .list-item .col-text {
+    padding-left: 10px;
+}

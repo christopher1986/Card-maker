@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Canvas</title>
+        <link rel='stylesheet' id='main-css'  href='assets/css/main.css' type='text/css' media='all' />
+        <script type="text/javascript" src="assets/js/util/cardmaker.browser-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/util/cardmaker.converter-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/util/cardmaker.dimension-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/util/cardmaker.sortable-1.0.0.js"></script>        
+        <script type="text/javascript" src="assets/js/event/cardmaker.dispatcher-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/event/cardmaker.listener-aggregate-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/cardmaker.object-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/drawing/cardmaker.drawable-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/drawing/cardmaker.image-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/layout/cardmaker.panel-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/layout/cardmaker.layer-panel-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/validator/cardmaker.validator-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/validator/cardmaker.chain-validator-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/validator/cardmaker.mime-validator-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/io/cardmaker.file-uploader-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/io/cardmaker.file-manager-1.0.0.js"></script>
+        <script type="text/javascript" src="assets/js/cardmaker.canvas-1.0.0.js"></script>
+    </head>
+    <body>
+        <div>
+            <input type="file" name="files[]" id="file-upload" multiple />
+        </div>
+        <div class="cardmaker-container row">
+            <div class="col-canvas column">
+                <canvas id="tutorial" style="width:1000px;height:500px;" width="2800" height="1200"></canvas>
+            </div>
+            <div class="col-right column">
+                <div id="layers-panel"></div>
+            </div>
+        </div>
+        <script>            
+            var layers = new cardmaker.LayerPanel(document.getElementById('layers-panel'));
+            var canvas = new cardmaker.Canvas(document.getElementById('tutorial'));
+                canvas.addPanel(layers);
+                canvas.addFileManager(document.getElementById('file-upload'));
+                canvas.addFileManager(document.getElementById('tutorial'));
+        </script>
+    </body>
+</html>
