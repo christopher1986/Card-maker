@@ -1,4 +1,5 @@
 (function(window, document, cardmaker, undefined) {
+    "use strict";
     
     if (typeof Number.prototype.format !== 'function') {
         /**
@@ -63,23 +64,23 @@
     }
     
     /**
-     * Create the HTML elements that represent the user interface.
+     * Return an {@link HTMLElement} that represents this layer.
      *
-     * @param {DocumentFragment|Document|HTMLElement} element the element to which other elements will be appended.
+     * @return {HTMLElement} the element to display to the user.
      * @public
      */
-    Layer.prototype.render = function(element) {
+    Layer.prototype.toHtml = function() {    
         var image = document.createElement('img');
         image.src = this.src;
         image.style.maxWidth = '100%';
         image.style.height = 'auto';
         image.style.width = 'auto';
         
-        // image column
+        // thumbnail
         var leftCol = document.createElement('div');
         leftCol.className = 'column col-image';
         leftCol.appendChild(image);
-        // text column
+        // text
         var rightCol = document.createElement('div');
         rightCol.className = 'column col-text';
         rightCol.appendChild(document.createTextNode(this.text));
@@ -92,13 +93,8 @@
         var item = document.createElement('div');
         item.className = 'list-item layer-item';
         item.appendChild(row);
-
-        if (element instanceof window.HTMLElement) {
-            element.appendChild(item);
-        }
         
-        var sortable = new cardmaker.Sortable();
-        sortable.enableSort(item);
+        return item;
     }
     
     /**
@@ -117,12 +113,7 @@
          */
         var self = this;
         
-        /**
-         * A collection of layers.
-         *
-         * @type
-         */
-        self.layers = [];
+        self.list = null;
         
         /**
          * Initialize the LayerPanel.
@@ -136,11 +127,13 @@
                 throw new TypeError('LayerPanel expects an HTMLElement.');
             }
             
-            var list = document.createElement('div');
-            list.className = 'layer-list'; 
-        
+            var layers = document.createElement('div');
+                layers.className = 'layer-list'; 
+            
             // call parent constructor.
-            cardmaker.Panel.call(self, element.appendChild(list));
+            cardmaker.Panel.call(self, element.appendChild(layers));
+            
+            self.list = new cardmaker.SortableList(new cardmaker.ObservableList(layers));
         }
         init(element);
     }
@@ -176,14 +169,11 @@
      * @param {ProgressEvent} event object containing details about this event.
      */
     LayerPanel.prototype.onUploadFinished = function(event) {
-        var number = (this.layers.length + 1);
-        var text = 'Layer {0}'.format(number);
-        if (this.element) {
-            var layer = new Layer(event.target.result, text);
-                layer.render(this.element);
+        var number = (this.list.size() + 1);
+        var text   = 'Layer {0}'.format(number);
+        var layer  = new Layer(event.target.result, text);
 
-            this.layers.push(layer);
-        }
+        this.list.add(layer.toHtml());
     }
 
     // add LayerPanel to namespace.
