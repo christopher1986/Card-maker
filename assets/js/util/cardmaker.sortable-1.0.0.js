@@ -52,6 +52,32 @@
         }
         init(selector);
     }
+    
+    /**
+     * Tests whether the specified element is sortable.
+     *
+     * @param {Element} element the element to test wheter it is sortable.
+     * @return {Boolean} true if the element is sortable, otherwise false.
+     */
+    Sortable.prototype.isSortable = function(element) {
+        var sortable = false;
+        if (this.isAllowed(element)) {
+            sortable = (element.getAttribute('data-sortable') === 'true');
+        }
+        
+        return sortable;
+    }
+    
+    /**
+     * Tests whether the specified element can be used as sortable element.
+     *
+     * @param {*} element the element whose type will be tested.
+     * @return {Boolean} true if the element can be made sortable, otherwise false.
+     * @public
+     */
+    Sortable.prototype.isAllowed = function(element) {
+        return (element instanceof window.Element);
+    }
 
     /**
      * Allow the specified element to be sortable.
