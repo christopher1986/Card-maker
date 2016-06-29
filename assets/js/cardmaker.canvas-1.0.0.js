@@ -26,7 +26,7 @@
         var listeners = null;
         
         /**
-         * The element that represents this user interface for this canvas.
+         * The element that represents the user interface for this canvas.
          *
          * @type {HTMLCanvasElement}
          * @public
