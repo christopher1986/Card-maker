@@ -228,7 +228,7 @@
         var inserted = false;
         if (Number.isNumeric(index)) {
             var children = this.getParent().children;
-            if (index < (children.length - 1) && nextIndex >= 0) {
+            if (index < (children.length - 1)) {
                 var sibling = children[++index];
                 inserted = (node.insertBefore(node, sibling) !== null);
             }
