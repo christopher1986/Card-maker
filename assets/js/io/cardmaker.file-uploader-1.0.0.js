@@ -26,7 +26,7 @@
         /**
          * A reference to this object.
          *
-         * @typedef {UploadEvent}
+         * @typedef {ProgressEvent}
          * @private
          */
         var self = this;
