@@ -10,6 +10,17 @@ img {
 }
 
 /*
+** Draggable
+*/
+[draggable=true] {
+    cursor: pointer;
+}
+
+[draggable=true]:active {
+    cursor: move;
+}
+
+/*
 ** Row
 */       
 .row {
@@ -60,8 +71,13 @@ img {
 }
 
 .layer-list .list-item {
-    margin: 0;
+    margin: 0 0 5px;
     padding: 0;
+    cursor: pointer;
+}
+
+.layer-list .list-item.moving {
+    cursor: move;
 }
 
 .layer-list .list-item .column {
@@ -76,9 +92,20 @@ img {
 }
 
 .layer-list .list-item .col-image img {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
     border: 1px solid black;
+    vertical-align: middle;
+    -webkit-user-drag: none;
+            user-drag: none; 
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 .layer-list .list-item .col-text {
     padding-left: 10px;
 }
+
