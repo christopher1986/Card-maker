@@ -277,7 +277,7 @@
         if (event.stopPropagation) {
             event.stopPropagation();
         }
-        console.log('works');
+
         this.draggable = event.currentTarget;
         
         event.currentTarget.classList.add('moving');

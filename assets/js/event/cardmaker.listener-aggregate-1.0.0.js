@@ -75,7 +75,7 @@
     ListenerAggregate.prototype.layerSelect = function(event) {
         var keyName = event.key;
         if (keyName.toLowerCase() === 'control') {
-            console.log(this.canvas);
+
         }
     }
     
