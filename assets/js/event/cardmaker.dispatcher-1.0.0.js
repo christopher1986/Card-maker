@@ -86,7 +86,7 @@
         /**
          * The handler to execute.
          *
-         * @type {callback}
+         * @type {Callback}
          */
         self.handler = null;
         
