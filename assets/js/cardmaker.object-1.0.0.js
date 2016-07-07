@@ -11,12 +11,20 @@
     function MVCObject()
     {
         /**
+         * A reference to this object.
+         *
+         * @typedef {MVCObject}
+         * @private
+         */
+        var self = this;
+        
+        /**
          * The EventDispatcher.
          *
          * @typedef {EventDispatcher}
          * @public
          */
-        this.dispatcher = new cardmaker.EventDispatcher();
+        self.dispatcher = new cardmaker.EventDispatcher();
     }
     
     /**
@@ -36,7 +44,7 @@
      * Attach an event handler for the specified event.
      *
      * @param {String} event the event type.
-     * @param {callback} handler the callback to execute.
+     * @param {Callback} handler the callback to execute.
      * @param {Number} priority (optional) the priority associated with the handler.
      * @param {Boolean} once (optional) only execute the handler once, defaults to false.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be attached.
@@ -51,7 +59,7 @@
      * Attach an event handler for the specified event. The handler is executed at most once.
      *
      * @param {String} event the event type.
-     * @param {callback} handler the callback to execute.
+     * @param {Callback} handler the callback to execute.
      * @param {Number} priority (optional) the priority associated with the handler.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be attached.
      * @public
@@ -65,7 +73,7 @@
      * Detach an event handler for the specified event or remove all handlers if no handler is specified.
      *
      * @param {String} event the event type for this to remove one or more handlers.
-     * @param {callback} (optional) handler a specific callback to remove.
+     * @param {Callback} (optional) handler a specific callback to remove.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be detached.
      * @public
      */
