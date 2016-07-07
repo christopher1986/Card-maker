@@ -96,7 +96,7 @@
         /**
          * The element to which children are appended.
          *
-         * @type {Node}
+         * @type {window.Node}
          * @private
          */
         var parent = null;
@@ -104,7 +104,7 @@
         /** 
          * Returns the element that represents this list.
          *
-         * @return {Node} the element that represents this list.
+         * @return {window.Node} the element that represents this list.
          * @public
          */
         self.getParent = function() {
@@ -114,7 +114,7 @@
         /**
          * Initialize the List.
          *
-         * @param {Node} element the HTML element that represents this list.
+         * @param {window.Node} element the HTML element that represents this list.
          * @throws {TypeError} if the specified argument is not an HTMLElement.
          * @private
          */
@@ -134,7 +134,7 @@
     /**
      * Append the specified node to the end of the list.
      *
-     * @param {Node} node the node to append.
+     * @param {window.Node} node the node to append.
      * @return {Boolean} true if the node was appended, otherwise false.
      * @public
      */
@@ -150,7 +150,7 @@
     /**
      * Append the collection of nodes to the end of the list.
      *
-     * @param {Node[]} nodes the collection of nodes to append.
+     * @param {window.Node[]} nodes the collection of nodes to append.
      * @return {Boolean} true if at least one node was appended, otherwise false.
      * @public
      */    
@@ -170,7 +170,7 @@
      * Remove the node at the specified position from this list.
      *
      * @param {Number} index the index of the node to be removed.
-     * @return {Node|null} the node that was removed, or null if no node was found.
+     * @return {window.Node|null} the node that was removed, or null if no node was found.
      * @public
      */    
     List.prototype.removeByIndex = function(index) {
@@ -189,7 +189,7 @@
     /**
      * Remove if present the specified node from this list.
      *
-     * @param {Node} node the node to remove.
+     * @param {window.Node} node the node to remove.
      * @return {Boolean} true if the node was removed, otherwise false.
      * @public
      */
@@ -200,7 +200,7 @@
     /**
      * Remove one or more nodes contained by the collection from this list.
      *
-     * @param {Node[]} nodes the collection of nodes to remove.
+     * @param {window.Node[]} nodes the collection of nodes to remove.
      * @return {Boolean} true if at least one node was removed, otherwise false.
      * @public
      */
@@ -220,7 +220,7 @@
      * Insert an node at the specified index.
      *
      * @param {Number} index the index at which to insert the node.
-     * @param {Node} node the node to insert.
+     * @param {window.Node} node the node to insert.
      * @return {Boolean} true if the node was inserted, otherwise false.
      * @public
      */
@@ -228,7 +228,7 @@
         var inserted = false;
         if (Number.isNumeric(index)) {
             var children = this.getParent().children;
-            if (index < (children.length - 1)) {
+            if (index >= 0 && index < (children.length - 1)) {
                 var sibling = children[++index];
                 inserted = (node.insertBefore(node, sibling) !== null);
             }
@@ -240,7 +240,7 @@
     /**
      * Tests whether the specified is contained within this list.
      *
-     * @param {Node} node the node whose presence will be tested.
+     * @param {window.Node} node the node whose presence will be tested.
      * @return {Boolean} true if the node exists within this list, otherwise false.
      * @public
      */
@@ -251,7 +251,7 @@
     /**
      * Returns the index of the first occurrence of the specified node in this list.
      *
-     * @param {Node} node the node to search for.
+     * @param {window.Node} node the node to search for.
      * @return {Number} the index associated with the node, or -1 on failure.
      * @public
      */
@@ -273,7 +273,7 @@
     /**
      * Returns the index of the last occurrence of the specified node in this list.
      *
-     * @param {Node} node the node to search for.
+     * @param {window.Node} node the node to search for.
      * @return {Number} the index associated with the node, or -1 on failure.
      * @public
      */
@@ -331,7 +331,7 @@
     /**
      * Returns an array containing all nodes contained within this list.
      *
-     * @return {Node[]} a collection of nodes contained within this list.
+     * @return {window.Node[]} a collection of nodes contained within this list.
      * @public
      */
     List.prototype.toArray = function() {
