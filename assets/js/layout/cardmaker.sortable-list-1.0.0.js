@@ -186,7 +186,7 @@
      * @public
      */
     SortableList.prototype.clear = function() {
-        this.getDecoratee().isEmpty();
+        this.getDecoratee().clear();
     }
     
     /**
@@ -212,7 +212,7 @@
     /**
      * Tests whether the specified element is sortable.
      *
-     * @param {Element} element the element to test wheter it is sortable.
+     * @param {Element} element the element to test whether it is sortable.
      * @return {Boolean} true if the element is sortable, otherwise false.
      */
     SortableList.prototype.isSortable = function(element) {
