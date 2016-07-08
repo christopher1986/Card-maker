@@ -173,7 +173,7 @@
         var text   = 'Layer {0}'.format(number);
         var layer  = new Layer(event.target.result, text);
 
-        this.list.add(layer.toHtml());
+        this.list.insert(0, layer.toHtml());
     }
 
     // add LayerPanel to namespace.
