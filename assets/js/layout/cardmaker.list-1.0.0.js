@@ -228,10 +228,12 @@
         var inserted = false;
         if (Number.isNumeric(index)) {
             var children = this.getParent().children;
-            if (index >= 0 && index < (children.length - 1)) {
-                var sibling = children[++index];
-                inserted = (node.insertBefore(node, sibling) !== null);
+            if (index >= children.length) {
+                return this.add(node);
             }
+            
+            index = (index > 0) ? index : 0;
+            inserted = (this.getParent().insertBefore(node, children[index]) !== null);
         }
         
         return inserted;
