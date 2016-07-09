@@ -136,7 +136,7 @@
         this.tx = 0
     }
     
-    // add Transform to namespace.
-    cardmaker.Transform = Transform;
+    // add Matrix to namespace.
+    cardmaker.Matrix = Matrix;
 
 })(this, this.document, this.cardmaker = this.cardmaker || {});
