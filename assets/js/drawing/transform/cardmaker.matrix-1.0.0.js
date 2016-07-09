@@ -79,7 +79,7 @@
      *
      * @param {Number} tx the horizontal movement value.
      * @param {Number} ty the vertical movement value.
-     * @link {@see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Translating}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Translating}
      * @public
      */
     Matrix.prototype.translate(tx, ty) {
@@ -92,7 +92,7 @@
      *
      * @param {Number} sx the horizontal scaling value.
      * @param {NUmber} sy the vertical scaling value.
-     * @link {@see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Scaling}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Scaling}
      * @public
      */
     Matrix.prototype.scale(sx, sy) {
