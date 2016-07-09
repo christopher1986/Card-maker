@@ -103,6 +103,9 @@
     /**
      * Applies a rototation to the transformation matrix.
      *
+     * The angle by which to rotate the transformation matrix is expressed in radians, not degress. So if necessary 
+     * use the {@link cardmaker.Converter#degreesToRadians} method to convert an angle in degrees into radians.
+     *
      * @param {Number} radians the angle in 
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Rotating}
      * @public
