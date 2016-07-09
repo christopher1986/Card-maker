@@ -82,7 +82,7 @@
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Translating}
      * @public
      */
-    Matrix.prototype.translate(tx, ty) {
+    Matrix.prototype.translate = function(tx, ty) {
         self.tx = tx;
         self.ty = ty;
     }
@@ -95,7 +95,7 @@
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Scaling}
      * @public
      */
-    Matrix.prototype.scale(sx, sy) {
+    Matrix.prototype.scale = function(sx, sy) {
         self.a = sx;
         self.d = sy;
     }
@@ -110,7 +110,7 @@
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Rotating}
      * @public
      */
-    Matrix.prototype.rotate(radians) {        
+    Matrix.prototype.rotate = function(radians) {        
         var sin = Math.sin(radians);
         var cos = Math.cos(radians);
     
@@ -127,7 +127,7 @@
      * @return void
      * @public
      */
-    Matrix.prototype.identity() {
+    Matrix.prototype.identity = function() {
         this.a = 1;
         this.b = 0;
         this.c = 0;
