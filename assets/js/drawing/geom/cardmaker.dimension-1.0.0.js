@@ -6,7 +6,7 @@
          * Tests whether the specified argument is an array.
          *
          * @param {*} obj the argument whose type will be tested.
-         * @return {boolean} true if the argument is an array, otherwise false.
+         * @return {Boolean} true if the argument is an array, otherwise false.
          * @public
          * @static
          */
@@ -20,7 +20,7 @@
          * Tests whether the specified argument is a numeric value.
          *
          * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
+         * @return {Boolean} true if the argument is a numeric value, otherwise false.
          * @public
          * @static
          */
@@ -30,17 +30,17 @@
     }
 
     /**
-     * The Dimension2D class encapsulate the width and height of a dimension in space.
+     * The Dimension class encapsulate the width and height of a dimension in space.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
      * @since 1.0.0
      */
-    function Dimension2D(width, height) {
+    function Dimension(width, height) {
         /**
          * A reference to this object.
          *
-         * @typedef {Dimension2D}
+         * @typedef {Dimension}
          * @private
          */
         var self = this;
@@ -62,7 +62,7 @@
         self.height = 0;
         
         /**
-         * Initialize the Dimension2D.
+         * Initialize the Dimension.
          *
          * @param {String|Number} width (optional) the width.
          * @param {String|Number} height (optional) the height.
@@ -81,7 +81,7 @@
      * @param {String|Number} width the width.
      * @public
      */
-    Dimension2D.prototype.setWidth = function(width) {
+    Dimension.prototype.setWidth = function(width) {
         this.width = (typeof width === 'string') ? this.convert(width) : width;
     }
     
@@ -91,7 +91,7 @@
      * @return {Number} the width.
      * @public
      */
-    Dimension2D.prototype.getWidth = function() {
+    Dimension.prototype.getWidth = function() {
         return (Number.isNumeric(this.width)) ? this.width : 0;
     }
     
@@ -101,7 +101,7 @@
      * @param {String|Number} height the height.
      * @public
      */
-    Dimension2D.prototype.setHeight = function(height) {
+    Dimension.prototype.setHeight = function(height) {
         this.height = (typeof height === 'string') ? this.convert(height) : height;
     }
     
@@ -111,7 +111,7 @@
      * @return {Number} the height.
      * @public
      */
-    Dimension2D.prototype.getHeight = function() {
+    Dimension.prototype.getHeight = function() {
         return (Number.isNumeric(this.height)) ? this.height : 0;
     }
     
@@ -123,7 +123,7 @@
      * @return {Number} the size in pixels.
      * @public
      */
-    Dimension2D.prototype.convert = function(size) {
+    Dimension.prototype.convert = function(size) {
         var matches = size.match(/(\d+)(\w*)/);
         if (Array.isArray(matches)) {
             switch (matches[2]) {
@@ -145,7 +145,7 @@
         return 0;
     }
     
-    // add Dimension2D to namespace.
-    cardmaker.Dimension2D = Dimension2D;
+    // add Dimension to namespace.
+    cardmaker.Dimension = Dimension;
     
 })(this, this.document, this.cardmaker = this.cardmaker || {});
