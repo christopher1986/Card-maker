@@ -14,6 +14,7 @@
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
      * @since 1.0.0
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations}
      */
     function Matrix() {
         /**
@@ -73,16 +74,47 @@
         self.ty = 0;
     }
     
-    Transform.prototype.translate(tx, ty) {
-    
+    /**
+     * Applies a movement to the transformation matrix.
+     *
+     * @param {Number} tx the horizontal movement value.
+     * @param {Number} ty the vertical movement value.
+     * @link {@see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Translating}
+     * @public
+     */
+    Matrix.prototype.translate(tx, ty) {
+        self.tx = tx;
+        self.ty = ty;
     }
     
-    Transform.prototype.scale(sx, sy) {
-    
+    /**
+     * Applies a scale to the transformation matrix.
+     *
+     * @param {Number} sx the horizontal scaling value.
+     * @param {NUmber} sy the vertical scaling value.
+     * @link {@see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Scaling}
+     * @public
+     */
+    Matrix.prototype.scale(sx, sy) {
+        self.a = sx;
+        self.d = sy;
     }
     
-    Transform.prototype.rotate(degrees) {
+    /**
+     * Applies a rototation to the transformation matrix.
+     *
+     * @param {Number} radians the angle in 
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#Rotating}
+     * @public
+     */
+    Matrix.prototype.rotate(radians) {        
+        var sin = Math.sin(radians);
+        var cos = Math.cos(radians);
     
+        self.a = cos;
+        self.b = sin;
+        self.c = -sin;
+        self.d = cos;
     }
     
     /**
@@ -92,7 +124,7 @@
      * @return void
      * @public
      */
-    Transform.prototype.identity() {
+    Matrix.prototype.identity() {
         this.a = 1;
         this.b = 0;
         this.c = 0;
