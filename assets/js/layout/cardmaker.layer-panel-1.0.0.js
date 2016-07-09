@@ -1,7 +1,7 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Number.prototype.format !== 'function') {
+    if (typeof String.prototype.format !== 'function') {
         /**
          * Returns a formatted string according to the given arguments.
          *
