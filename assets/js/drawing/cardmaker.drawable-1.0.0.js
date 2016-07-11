@@ -195,7 +195,7 @@
      * @return {cardmaker.Point} point object containing the global coordinates.
      * @public
      */
-    Drawable.prototype.localToGlobal(point) {
+    Drawable.prototype.localToGlobal = function(point) {
     
     }
     
@@ -206,7 +206,7 @@
      * @return {cardmaker.Point} point object containing the local coordinates.
      * @public
      */
-    Drawable.prototype.globalToLocal(point) {
+    Drawable.prototype.globalToLocal = function(point) {
     
     }
     
