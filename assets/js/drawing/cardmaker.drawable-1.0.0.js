@@ -145,7 +145,7 @@
      * @throws {TypeError} if the specified argument is not a {@link cardmaker.DrawableContainer} or null literal.
      * @public
      */
-    Drawable.prototype.setParent(parent) {
+    Drawable.prototype.setParent = function(parent) {
         if (!(parent instanceof cardmaker.DrawableContainer) || parent !== null ) {
             throw new TypeError('Drawable expects parent to be cardmaker.DrawableContainer object');
         }
