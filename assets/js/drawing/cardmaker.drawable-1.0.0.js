@@ -139,10 +139,35 @@
     }
     
     /**
+     * Set the parent of this drawable.
+     *
+     * @param {cardmaker.DrawableContainer|null} parent the parent of this drawable, or null to remove the current parent.
+     * @throws {TypeError} if the specified argument is not a {@link cardmaker.DrawableContainer} or null literal.
+     * @public
+     */
+    Drawable.prototype.setParent(parent) {
+        if (!(parent instanceof cardmaker.DrawableContainer) || parent !== null ) {
+            throw new TypeError('Drawable expects parent to be cardmaker.DrawableContainer object');
+        }
+        
+        this.parent = parent;
+    }
+    
+    /**
+     * Returns if present the parent this drawable.
+     *
+     * @return {cardmaker.DrawableContainer|null} the parent of this drawable, or null if this drawable has no parent.
+     * @public
+     */
+    Drawable.prototype.getParent = function() {
+        return this.parent;
+    }
+    
+    /**
      * Set the x coordinate of this drawable which will be relative to the parent location. 
      *
      * @param {Number} x the x coordinates of the drawable.
-     * @throws TypeError if the specified argument is not a numeric value.
+     * @throws {TypeError} if the specified argument is not a numeric value.
      * @public
      */
     Drawable.prototype.setX= function(x) {
@@ -167,7 +192,7 @@
      * Set the y coordinate of this drawable which will be relative to the parent location. 
      *
      * @param {Number} y the y coordinates of the drawable.
-     * @throws TypeError if the specified argument is not a numeric value.
+     * @throws {TypeError} if the specified argument is not a numeric value.
      * @public
      */
     Drawable.prototype.setY = function(y) {
