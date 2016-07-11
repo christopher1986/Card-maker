@@ -1,6 +1,20 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
+    if (typeof Number.isNumeric !== 'function') {
+        /**
+         * Tests whether the specified argument is a numeric value.
+         *
+         * @param {*} value the argument whose type will be tested.
+         * @return {boolean} true if the argument is a numeric value, otherwise false.
+         * @public
+         * @static
+         */
+        Number.isNumeric = function(value) {
+            return (!isNaN(parseFloat(value)) && isFinite(value));
+        }
+    }
+    
     /**
      * The InvalidateEvent contains information about a Drawable object that has been invalidated.
      *
@@ -60,6 +74,38 @@
          */
         var self = this;
         
+        /**
+         * A drawable object that contains this drawable.
+         *
+         * @typedef {cardmaker.Drawable}
+         * @private
+         */
+        self.parent = null;
+        
+        /**
+         * The x coordinate relative to the parent location.
+         *
+         * @type {Number}
+         * @private
+         */ 
+        self.x = 0;
+        
+        /**
+         * The y coordinate relative to the parent location.
+         *
+         * @type {Number}
+         * @private
+         */
+        self.y = 0;
+        
+        /**
+         * A transformation matrix. 
+         *
+         * @typedef {cardmaker.Matrix}
+         * @private
+         */
+        self.matrix = new cardmaker.Matrix();
+        
         // call parent constructor.
         cardmaker.MVCObject.call(self);
     }
@@ -76,9 +122,10 @@
      *
      * @param {cardmaker.Canvas} canvas the canvas on which to draw.
      * @public
+     * @abstract
      */
     Drawable.prototype.draw = function(canvas) {
-    
+        throw new Error('This method must be implemented by a subclass.');
     }
     
     /**
@@ -89,6 +136,78 @@
      */
     Drawable.prototype.invalidate = function() {
         this.on('invalidate', new InvalidateEvent('invalidate', this));
+    }
+    
+    /**
+     * Set the x coordinate of this drawable which will be relative to the parent location. 
+     *
+     * @param {Number} x the x coordinates of the drawable.
+     * @throws TypeError if the specified argument is not a numeric value.
+     * @public
+     */
+    Drawable.prototype.setX= function(x) {
+        if (!Number.isNumeric(x)) {
+            throw new TypeError('Drawable expects the x coordinate to be a numeric value.')
+        }
+        
+        this.x = x;
+    }
+    
+    /**
+     * Returns the x coordinate of this drawable which is relative to the parent location. 
+     *
+     * @return {Number} the x coordinates of the drawable.
+     * @public
+     */
+    Drawable.prototype.getX = function() {
+        return this.x;
+    }
+    
+    /**
+     * Set the y coordinate of this drawable which will be relative to the parent location. 
+     *
+     * @param {Number} y the y coordinates of the drawable.
+     * @throws TypeError if the specified argument is not a numeric value.
+     * @public
+     */
+    Drawable.prototype.setY = function(y) {
+        if (!Number.isNumeric(y)) {
+            throw new TypeError('Drawable expects the y coordinate to be a numeric value.')
+        }
+        
+        this.y = y;
+    }
+    
+    /**
+     * Returns the y coordinate of this drawable which is relative to the parent location. 
+     *
+     * @return {Number} the y coordinates of the drawable.
+     * @public
+     */
+    Drawable.prototype.getY = function() {
+        return this.y;
+    }
+    
+    /**
+     * Converts the point object from the drawable (local) coordinates to the canvas (global) coordinates.
+     *
+     * @param {cardmaker.Point} point the local coordinates to convert.
+     * @return {cardmaker.Point} point object containing the global coordinates.
+     * @public
+     */
+    Drawable.prototype.localToGlobal(point) {
+    
+    }
+    
+    /**
+     * Converts the point object from the canvas (global) coordinates to the drawable (local) coordinates.
+     *
+     * @param {cardmaker.Point} point the global coordinates to convert.
+     * @return {cardmaker.Point} point object containing the local coordinates.
+     * @public
+     */
+    Drawable.prototype.globalToLocal(point) {
+    
     }
     
     // add Drawable to namespace.
