@@ -178,7 +178,7 @@
         var parent = this.getParent();
         if (parent) {
             var children = parent.children;
-            if (index > 0 && index < children.length) {
+            if (index >= 0 && index < children.length) {
                  child = parent.removeChild(children[index]);
             }
         }
