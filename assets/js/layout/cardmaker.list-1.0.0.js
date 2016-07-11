@@ -78,7 +78,7 @@
     }
 
     /**
-     * The List represents a block-level element containing zero or more child elements.
+     * The List class provides an object oriented interface for block-level element containing other elements.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
