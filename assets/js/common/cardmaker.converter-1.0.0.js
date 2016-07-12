@@ -1,22 +1,8 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
 
     /**
-     * This class contains methods for manipulating sizes of various measurements.
+     * The Converter class contains static methods for manipulating sizes of various measurements.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
@@ -33,7 +19,7 @@
      * @see {@link http://www.rapidtables.com/convert/number/degrees-to-radians.htm}
      */
     Converter.degreesToRadians = function (degrees) {
-        if (Number.isNumeric(radians)) {
+        if (cardmaker.NumberUtil.isNumeric(radians)) {
             throw new TypeError('Converter: the specified degrees must be a numeric value.')
         }
         
@@ -49,7 +35,7 @@
      * @see {@link http://www.rapidtables.com/convert/number/radians-to-degrees.htm}
      */
     Converter.radiansToDegrees = function (radians) {
-        if (Number.isNumeric(radians)) {
+        if (cardmaker.NumberUtil.isNumeric(radians)) {
             throw new TypeError('Converter: the specified radians must be a numeric value.')
         }
         
@@ -66,7 +52,7 @@
      */
     Converter.mmToPixel = function(size, dpi) {
         var inches = size / 25.4;
-        return (Number.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
+        return (cardmaker.NumberUtil.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
     }
     
     /**
@@ -79,7 +65,7 @@
      */
     Converter.cmToPixel = function(size, dpi) {
         var inches = size / 2.54;
-        return (Number.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
+        return (cardmaker.NumberUtil.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
     }
     
     /**
@@ -92,7 +78,7 @@
      */
     Converter.pointToPixel = function(size, dpi) {
         var inches = size / 72;
-        return (Number.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
+        return (cardmaker.NumberUtil.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
     }
     
     /**
@@ -105,7 +91,7 @@
      */
     Converter.picaToPixel = function(size, dpi) {
         var inches = size / 6;
-        return (Number.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
+        return (cardmaker.NumberUtil.isNumeric(size)) ? Converter.inchToPixel(inches, dpi) : 0;
     }
     
     /**
@@ -117,8 +103,8 @@
      * @public
      */
     Converter.inchToPixel = function(size, dpi) {
-        dpi = (Number.isNumeric(dpi) && dpi > 0) ? dpi : 300;
-        return (Number.isNumeric(size)) ? Math.round(size * dpi) : 0;
+        dpi = (cardmaker.NumberUtil.isNumeric(dpi) && dpi > 0) ? dpi : 300;
+        return (cardmaker.NumberUtil.isNumeric(size)) ? Math.round(size * dpi) : 0;
     }
     
     // add Converter to namespace.

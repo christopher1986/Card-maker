@@ -1,20 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-    
     /**
      * The Event class is a generic event that is passed to an event handler.
      *
@@ -100,7 +86,7 @@
          */
         function init(handler, priority, once) {
             self.handler  = handler;
-            self.priority = (Number.isNumeric(priority) && priority >= 0) ? parseInt(priority) : 0;
+            self.priority = (cardmaker.NumberUtil.isNumeric(priority) && priority >= 0) ? parseInt(priority) : 0;
             self.once     = (typeof once === 'boolean') ? once : false;
         }
         init(handler, priority, once);
@@ -148,7 +134,7 @@
             event = new Event(event);
         }
 
-        var args = [event].concat(Array.prototype.slice.call(arguments, 2));
+        var args = [event].concat(cardmaker.ArrayUtil.copy(arguments, 2));
         if (this.items.hasOwnProperty(event.type)) {
             var bucket = this.items[event.type];
             var start  = bucket.length - 1;

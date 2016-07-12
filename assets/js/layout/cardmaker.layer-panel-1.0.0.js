@@ -1,22 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof String.prototype.format !== 'function') {
-        /**
-         * Returns a formatted string according to the given arguments.
-         *
-         * @param {...string} a variable number of arguments to use in the format.
-         * @return string the formatted string.
-         * @public
-         */
-        String.prototype.format = function() {
-            var args = arguments;
-            return this.replace(/{(\d+)}/g, function(match, number) {
-                return (typeof args[number] !== 'undefined') ? args[number] : match;
-            });
-        };
-    }
-    
     /**
      * The Layer represents a single image, shape or other object on the canvas.
      *
@@ -170,7 +154,7 @@
      */
     LayerPanel.prototype.onUploadFinished = function(event) {
         var number = (this.list.size() + 1);
-        var text   = 'Layer {0}'.format(number);
+        var text   = cardmaker.StringUtil.format('Layer {0}', number);
         var layer  = new Layer(event.target.result, text);
 
         this.list.insert(0, layer.toHtml());

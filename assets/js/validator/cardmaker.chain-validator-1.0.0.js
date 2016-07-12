@@ -1,20 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Object.isPlainObject !== 'function') {
-        /**
-         * Tests whether the specified argument is a plain object.
-         *
-         * @param {*} obj the argument whose type will be tested.
-         * @return {boolean} true if the argument is a plain object, otherwise false.
-         * @public
-         * @static
-         */
-        Object.isPlainObject = function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Object]';
-        }
-    }
-    
     /**
      * The ChainValidator is a composite that will test a value against one or more validators.
      *
@@ -103,7 +89,7 @@
      */
     ChainValidator.prototype.putValidators = function(validators) {
         var oldValidators = {};
-        if (Object.isPlainObject(validators)) {
+        if (cardmaker.ObjectUtil.isPlainObject(validators)) {
             var name, previous;
             for (name in validators) {
                 previous = this.putValidator(name, validators[name]);

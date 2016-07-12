@@ -1,34 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Array.isArray !== 'function') {
-        /**
-         * Tests whether the specified argument is an array.
-         *
-         * @param {*} obj the argument whose type will be tested.
-         * @return {boolean} true if the argument is an array, otherwise false.
-         * @public
-         * @static
-         */
-        Array.isArray = function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Array]';
-        }
-    }
-    
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-    
     /**
      * The DrawableContainer represents a composite of {@link cardmaker.Drawable} objects and is the base class for
      * all drawable objects that have children.
@@ -87,7 +59,7 @@
      */
     DrawableContainer.prototype.addChildren = function(children) {
         var added = false;
-        if (Array.isArray(children)) {
+        if (cardmaker.ArrayUtil.isArray(children)) {
             var index, size;
             for (index = 0, size = children.length; index < size, index++) {
                 added = (added || this.addChild(children[index]));
@@ -107,7 +79,7 @@
      */
     DrawableContainer.prototype.insertChild = function(index, child) {
         var oldSize = this.size();
-        if (Number.isNumeric(index) && this.isAllowed(child)) {
+        if (cardmaker.NumberUtil.isNumeric(index) && this.isAllowed(child)) {
             // set parent of drawable.
             child.setParent(this);
             // insert drawable into list.

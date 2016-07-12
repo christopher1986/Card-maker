@@ -2,7 +2,7 @@
     "use strict";
     
     /**
-     * This class is used to detect whether the browser supports specific features.
+     * The Browser class provides static methods which can be used to detect whether a browser supports specific features.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
