@@ -11,6 +11,21 @@
     function ArrayUtil() {}
     
     /**
+     * Swap the elements at the specified positions in the specified array.
+     *
+     * @param {Array} src the array containing the elements to swap.
+     * @param {Number} i the index of the first element to swap.
+     * @param {Number} j the index of the second element to swap with.
+     * @public
+     * @static
+     */
+    ArrayUtil.swap = function(src, i, j) {
+        var tmp = src[i];
+        src[i] = src[j];
+        src[j] = tmp;
+    }
+    
+    /**
      * Tests whether the specified argument is an array.
      *
      * @param {*} obj the argument whose type will be tested.
