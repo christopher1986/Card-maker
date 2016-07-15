@@ -34,7 +34,7 @@
      * @param {...*} additional paramaters to pass along to the event handler.
      */
     MVCObject.prototype.dispatch = function(event) {
-        var args = Array.prototype.slice.call(arguments);
+        var args = cardmaker.ArrayUtil.copy(arguments);
             args.unshift(this);
 
         this.dispatcher.dispatch.apply(this.dispatcher, args);

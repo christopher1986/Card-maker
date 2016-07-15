@@ -1,33 +1,5 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
-    if (typeof Array.isArray !== 'function') {
-        /**
-         * Tests whether the specified argument is an array.
-         *
-         * @param {*} obj the argument whose type will be tested.
-         * @return {Boolean} true if the argument is an array, otherwise false.
-         * @public
-         * @static
-         */
-        Array.isArray = function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Array]';
-        }
-    }
-
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {Boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
 
     /**
      * The Dimension class encapsulate the width and height of a dimension in space.
@@ -92,7 +64,7 @@
      * @public
      */
     Dimension.prototype.getWidth = function() {
-        return (Number.isNumeric(this.width)) ? this.width : 0;
+        return (cardmaker.NumberUtil.isNumeric(this.width)) ? this.width : 0;
     }
     
     /**
@@ -112,7 +84,7 @@
      * @public
      */
     Dimension.prototype.getHeight = function() {
-        return (Number.isNumeric(this.height)) ? this.height : 0;
+        return (cardmaker.NumberUtil.isNumeric(this.height)) ? this.height : 0;
     }
     
     /**
@@ -125,7 +97,7 @@
      */
     Dimension.prototype.convert = function(size) {
         var matches = size.match(/(\d+)(\w*)/);
-        if (Array.isArray(matches)) {
+        if (cardmaker.ArrayUtil.isArray(matches)) {
             switch (matches[2]) {
                 case 'mm':
                     return cardmaker.Converter.mmToPixel(matches[1]);

@@ -1,20 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
 
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-
     /**
      * A Bounds class defines the dimension and location of an object in a two-dimensional space.
      *
@@ -87,7 +73,7 @@
      * @public
      */
     Bounds.prototype.setX = function(x) {
-        this.x = (Number.isNumeric(x)) ? Math.floor(x) : 0;
+        this.x = (cardmaker.NumberUtil.isNumeric(x)) ? Math.floor(x) : 0;
     }
 
     /**
@@ -107,7 +93,7 @@
      * @public
      */
     Bounds.prototype.setY = function(y) {
-        this.y = (Number.isNumeric(y)) ? Math.floor(y) : 0;
+        this.y = (cardmaker.NumberUtil.isNumeric(y)) ? Math.floor(y) : 0;
     }
     
     /**
@@ -127,7 +113,7 @@
      * @public
      */
     Bounds.prototype.setWidth = function(width) {
-        this.width = (Number.isNumeric(width)) ? Math.floor(width) : 0;
+        this.width = (cardmaker.NumberUtil.isNumeric(width)) ? Math.floor(width) : 0;
     }
     
     /**
@@ -147,7 +133,7 @@
      * @public
      */
     Bounds.prototype.setHeight = function(height) {
-        this.height = (Number.isNumeric(height)) ? Math.floor(height) : 0; 
+        this.height = (cardmaker.NumberUtil.isNumeric(height)) ? Math.floor(height) : 0; 
     }
     
     /**

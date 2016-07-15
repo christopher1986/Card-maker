@@ -307,7 +307,7 @@
             event.stopPropagation();
         }
 
-        var target    = event.currentTarget;
+        var target = event.currentTarget;
         var draggable = this.draggable;
         if (draggable && draggable != target) {
             draggable.innerHTML = target.innerHTML;

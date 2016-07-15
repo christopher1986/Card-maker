@@ -54,7 +54,7 @@
             // call parent constructor.
             cardmaker.Event.call(self, type);
             
-            self.context = (Number.isNumeric(context)) ? context : 0x00;
+            self.context = (cardmaker.NumberUtil.isNumeric(context)) ? context : 0x00;
             self.list    = (list instanceof cardmaker.List) ? list : null;
             self.node    = (node instanceof window.Node) ? node : null;
         }
@@ -139,7 +139,7 @@
                 characterData: true,
                 subtree: false
             };
-            options = Object.merge(defaults, options);
+            options = cardmaker.ObjectUtil.merge(defaults, options);
 
             var observer = new MutationObserver(function(mutations) {
                 var index, size;
@@ -170,7 +170,7 @@
      * @param {...*} additional paramaters to pass along to the event handler.
      */
     ObservableList.prototype.dispatch = function(event) {
-        var args = Array.prototype.slice.call(arguments);
+        var args = cardmaker.ArrayUtil.copy(arguments);
             args.unshift(this);
 
         this.dispatcher.dispatch.apply(this.dispatcher, args);

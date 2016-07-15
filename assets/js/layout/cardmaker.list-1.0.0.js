@@ -1,82 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-
-    if (typeof Array.isArray !== 'function') {
-        /**
-         * Tests whether the specified argument is an array.
-         *
-         * @param {*} obj the argument whose type will be tested.
-         * @return {boolean} true if the argument is an array, otherwise false.
-         * @public
-         * @static
-         */
-        Array.isArray = function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Array]';
-        }
-    }
-
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
     
-    if (typeof Object.isPlainObject !== 'function') {
-        /**
-         * Tests whether the specified argument is a plain object.
-         *
-         * @param {*} obj the argument whose type will be tested.
-         * @return {boolean} true if the argument is a plain object, otherwise false.
-         * @public
-         * @static
-         */
-        Object.isPlainObject = function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Object]';           
-        }
-    }
-
-    if (typeof Object.merge !== 'function') {
-        /**
-         * Merge the contents of two or more objects into the first object.
-         *
-         * @param {Boolean} deep (optional) the first boolean argument determines whether the objects should be deep copied.
-         * @param {...Object} target two or more objects that will be merged into the first object.
-         * @return {Object|null} the resulting object after the merging has taken place, or null on failure.
-         * @public
-         * @static
-         */
-        Object.merge = function(target) {
-            var args = Array.prototype.slice.call(arguments);
-            var deep = (args.length && typeof args[0] === 'boolean') ? args.shift() : false;
-            
-            var objects = args.filter(Object.isPlainObject);
-            var merger  = {};
-            
-            var obj, prop, index, size;
-            for (index = 0, size = objects.length; index < size; index++) {
-                obj = objects[index];
-                for (prop in obj) {
-                    // deep copy objects recursively.
-                    if (deep && Object.isPlainObject(obj[prop]) && merger.hasOwnProperty(prop) && Object.isPlainObject(merger)) {
-                        merger[prop] = Object.merge(deep, merger[prop], obj[prop]);
-                    } else {
-                        merger[prop] = obj[prop];
-                    }
-                }
-            }
-            
-            return merger; 
-        }
-    }
-
     /**
      * The List class provides an object oriented interface for block-level element containing other elements.
      *
@@ -156,7 +80,7 @@
      */    
     List.prototype.addAll = function(nodes) {
         var oldSize = this.size();
-        if (Array.isArray(nodes)) {
+        if (cardmaker.ArrayUtil.isArray(nodes)) {
             var index, size;
             for (index = 0, size = nodes.length; index < size; index++) {
                 this.add(nodes[index]);
@@ -206,7 +130,7 @@
      */
     List.prototype.removeAll = function(nodes) {
         var oldSize = this.getParent().children.length;
-        if (Array.isArray(nodes)) {
+        if (cardmaker.ArrayUtil.isArray(nodes)) {
             var index, size;
             for (index = 0, size = nodes.length; index < size; index++) {
                 this.remove(nodes[index]);
@@ -226,7 +150,7 @@
      */
     List.prototype.insert = function(index, node) {
         var inserted = false;
-        if (Number.isNumeric(index)) {
+        if (cardmaker.NumberUtil.isNumeric(index)) {
             var children = this.getParent().children;
             if (index >= children.length) {
                 return this.add(node);
@@ -338,7 +262,7 @@
      */
     List.prototype.toArray = function() {
         var parent = this.getParent();
-        return (parent) ? Array.prototype.slice.call(parent.children) : [];
+        return (parent) ? cardmaker.ArrayUtil.copy(parent.children) : [];
     }
     
     // add List to namespace.

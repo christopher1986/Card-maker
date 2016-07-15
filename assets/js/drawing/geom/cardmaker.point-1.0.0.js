@@ -1,34 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Number.isInt !== 'function') {
-        /**
-         * Tests whether the specified argument is an integer value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {Boolean} true if the argument is an integer value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isInt = function(value) {
-            return (Number.isNumeric(value) && value % 1 === 0);
-        }
-    }
-    
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-    
     /**
      * The Point class represents a location (x,y) in coordinate space.
      *
@@ -82,7 +54,7 @@
      * @public
      */
     Point.prototype.setX = function(x) {
-        this.x = (Number.isInt(x)) ? x : 0;
+        this.x = (cardmaker.NumberUtil.isInt(x)) ? x : 0;
     }
     
     /**
@@ -102,7 +74,7 @@
      * @public
      */
     Point.prototype.setY = function(y) {
-        this.y = (Number.isInt(y)) ? x : 0;
+        this.y = (cardmaker.NumberUtil.isInt(y)) ? x : 0;
     }
     
     /**
@@ -137,12 +109,12 @@
      */
     Point.prototype.translate = function(tx, ty) {
         var x = this.getX();
-        if (Number.isInt(tx)) {
+        if (cardmaker.NumberUtil.isInt(tx)) {
             this.setX(x + tx); 
         }
         
         var y = this.getY();
-        if (Number.isInt(ty)) {
+        if (cardmaker.NumberUtil.isInt(ty)) {
             this.setY(y + ty);
         }
     }

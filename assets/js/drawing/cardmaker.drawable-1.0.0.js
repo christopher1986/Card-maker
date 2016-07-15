@@ -1,20 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
     
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-    
     /**
      * The InvalidateEvent contains information about a Drawable object that has been invalidated.
      *
@@ -147,7 +133,7 @@
      */
     Drawable.prototype.setParent = function(parent) {
         if (!(parent instanceof cardmaker.DrawableContainer) || parent !== null ) {
-            throw new TypeError('Drawable expects parent to be cardmaker.DrawableContainer object');
+            throw new TypeError('Drawable expects parent to be a cardmaker.DrawableContainer object');
         }
         
         this.parent = parent;
@@ -171,7 +157,7 @@
      * @public
      */
     Drawable.prototype.setX= function(x) {
-        if (!Number.isNumeric(x)) {
+        if (!cardmaker.NumberUtil.isNumeric(x)) {
             throw new TypeError('Drawable expects the x coordinate to be a numeric value.')
         }
         
@@ -196,7 +182,7 @@
      * @public
      */
     Drawable.prototype.setY = function(y) {
-        if (!Number.isNumeric(y)) {
+        if (!cardmaker.NumberUtil.isNumeric(y)) {
             throw new TypeError('Drawable expects the y coordinate to be a numeric value.')
         }
         

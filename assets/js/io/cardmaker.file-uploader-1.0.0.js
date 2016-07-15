@@ -1,20 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
 
-    if (typeof Number.isNumeric !== 'function') {
-        /**
-         * Tests whether the specified argument is a numeric value.
-         *
-         * @param {*} value the argument whose type will be tested.
-         * @return {boolean} true if the argument is a numeric value, otherwise false.
-         * @public
-         * @static
-         */
-        Number.isNumeric = function(value) {
-            return (!isNaN(parseFloat(value)) && isFinite(value));
-        }
-    }
-
     /**
      * The ProgressEvent contains information about the upload progress.
      *
@@ -77,8 +63,8 @@
             cardmaker.Event.call(self, type);
         
             self.target     = target;
-            self.loaded     = (Number.isNumeric(loaded)) ? loaded : 0;
-            self.total      = (Number.isNumeric(total)) ? total : 0;
+            self.loaded     = (cardmaker.NumberUtil.isNumeric(loaded)) ? loaded : 0;
+            self.total      = (cardmaker.NumberUtil.isNumeric(total)) ? total : 0;
             self.percentage = (self.total > 0) ? Math.round((self.loaded / self.total) * 100) : 0;
         }
         init(type, target, loaded, total);
