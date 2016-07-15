@@ -30,8 +30,8 @@
     }
     
     /**
-     * The DrawableContainer represents a composite of {@link cardmaker.Drawable} objects and is the base class for
-     * all drawable objects that have children.
+     * The DrawableContainer represents a composite of {@link cardmaker.Drawable} objects and is the base class 
+     * for drawable objects that have children.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
@@ -120,7 +120,7 @@
     /**
      * Returns the child at the specified position in this container.
      *
-     * @paran {Numbe} index the position of the child to return.
+     * @paran {Number} index the position of the child to return.
      * @return {cardmaker.Drawable|null} the child at the specified position, or null on failure.
      * @public
      */
