@@ -160,7 +160,7 @@
      *
      * @return {Boolean} true if the bounds intersect, otherwise false.
      */
-    Bounds.prototype.intersects = function(boudns) {
+    Bounds.prototype.intersects = function(bounds) {
     
     }
 
