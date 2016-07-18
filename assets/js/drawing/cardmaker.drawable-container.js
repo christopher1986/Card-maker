@@ -240,13 +240,13 @@
     }
     
     /**
-     * Tests whether the specified argument is a {@link cardmaker.Drawable} object.
+     * Tests whether the specified child is a {@link cardmaker.Drawable} object.
      *
-     * @param {*} object the argument whose type to test.
+     * @param {*} child the child whose type to test.
      * @return {Boolean} true if the specified argument is drawable object, otherwise false.
      */
-    Drawable.prototype.isAllowed = function(object) {
-        return (object instanceof cardmaker.Drawable);
+    Drawable.prototype.isAllowed = function(child) {
+        return (child instanceof cardmaker.Drawable);
     }
     
     // add DrawableContainer to namespace.
