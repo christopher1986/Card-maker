@@ -138,6 +138,52 @@
         return new Point(x, y);
     }
     
+    /**
+     * Returns a point object with the specified coordinates added to the coordinates of this point.
+     *
+     * @param {Number} x the x-coordinate to add.
+     * @param {Number} y the y-coordinate to add.
+     * @retunr {cardmaker.Point} a point object with the added coordinates.
+     */
+    Point.prototype.add = function(x, y) {
+        x = (cardmaker.NumberUtil.isInt(arguments[0])) ? arguments[0] : 0;
+        y = (cardmaker.NumberUtil.isInt(arguments[1])) ? arguments[1] : 0;
+        
+        return new Point ((this.getX() + x), (this.getY() + y));
+    }
+    
+    /**
+     * Returns a point object with the specified coordinates subtracted from the coordinates of this point.
+     *
+     * @param {Number} x the x-coordinate to subtract.
+     * @param {Number} y the y-coordinate to subtract.
+     * @retunr {cardmaker.Point} a point object with the subtracted coordinates.
+     */
+    Point.prototype.subtract = function(x, y) {
+        x = (cardmaker.NumberUtil.isInt(arguments[0])) ? arguments[0] : 0;
+        y = (cardmaker.NumberUtil.isInt(arguments[1])) ? arguments[1] : 0;
+        
+        return new Point ((this.getX() - x), (this.getY() - y));
+    }
+    
+    /**
+     * Creates a new point from the specified {@link cardmaker.Bounds} object.
+     *
+     * @param {cardmaker.Bounds} bounds the bounds from which to create a new point.
+     * @return {cardmaker.Point} a point object.
+     * @public
+     * @static
+     */
+    Point.createFromBounds(bounds) {
+        var point = new Point();
+        if (bounds instanceof cardmaker.Bounds) {
+            point.setX(bounds.getX());
+            point.setY(bounds.getY());
+        }
+        
+        return point;
+    }
+    
     // add Point to namespace.
     cardmaker.Point = Point;
 
