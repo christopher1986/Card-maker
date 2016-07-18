@@ -183,7 +183,7 @@
      * @public
      */
     Drawable.prototype.setX= function(x) {        
-        bounds.setX(x);
+        this.bounds.setX(x);
     }
     
     /**
