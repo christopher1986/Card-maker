@@ -66,7 +66,7 @@
          * @typedef {cardmaker.Bounds}
          * @private
          */
-        self.bounds = null;
+        self.bounds = new cardmaker.Bounds();
         
         /**
          * A drawable object that contains this drawable.
@@ -183,9 +183,7 @@
      * @public
      */
     Drawable.prototype.setX= function(x) {        
-        if (this.bounds instanceof cardmaker.Bounds) {
-            bounds.setX(x);
-        }
+        bounds.setX(x);
     }
     
     /**
@@ -195,7 +193,7 @@
      * @public
      */
     Drawable.prototype.getX = function() {
-        return (this.bounds instanceof cardmaker.Bounds) ? this.bounds.getX() : 0;
+        return this.bounds.getX();
     }
     
     /**
@@ -265,7 +263,7 @@
         var bounds = null;
         var parent = this.getParent();
         while (parent instanceof cardmaker.Drawable) {
-            bounds = parent.getLocalBounds();
+            bounds = parent.bounds;
             parent = parent.getParent();
             
             point = point.add(bounds.getX(), bounds.getY());
@@ -285,7 +283,7 @@
         var bounds = null;
         var parent = this.getParent();
         while (parent instanceof cardmaker.Drawable) {
-            bounds = parent.getLocalBounds();
+            bounds = parent.bounds;
             parent = parent.getParent();
             
             point = point.subtract(bounds.getX(), bounds.getY());
