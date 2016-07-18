@@ -260,13 +260,10 @@
      * @public
      */
     Drawable.prototype.localToGlobal = function(point) {
-        var bounds = null;
         var parent = this.getParent();
-        while (parent instanceof cardmaker.Drawable) {
-            bounds = parent.bounds;
+        while (parent instanceof cardmaker.Drawable) {            
+            point  = point.add(parent.bounds.getX(), parent.bounds.getY());
             parent = parent.getParent();
-            
-            point = point.add(bounds.getX(), bounds.getY());
         }
         
         return point;
@@ -280,13 +277,10 @@
      * @public
      */
     Drawable.prototype.globalToLocal = function(point) {
-        var bounds = null;
         var parent = this.getParent();
         while (parent instanceof cardmaker.Drawable) {
-            bounds = parent.bounds;
+            point  = point.subtract(parent.bounds.getX(), parent.bounds.getY());
             parent = parent.getParent();
-            
-            point = point.subtract(bounds.getX(), bounds.getY());
         }
         
         return point;
