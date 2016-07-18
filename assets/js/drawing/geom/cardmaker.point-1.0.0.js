@@ -174,7 +174,7 @@
      * @public
      * @static
      */
-    Point.createFromBounds(bounds) {
+    Point.createFromBounds = function(bounds) {
         var point = new Point();
         if (bounds instanceof cardmaker.Bounds) {
             point.setX(bounds.getX());
