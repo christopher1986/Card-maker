@@ -18,7 +18,7 @@
         var self = this;
         
         /**
-         * The X coordinate of the Bounds.
+         * The X coordinate of this Bounds.
          *
          * @type {Number}
          * @public
@@ -26,7 +26,7 @@
         self.x = 0;
         
         /**
-         * The Y coordinate of the Bounds.
+         * The Y coordinate of this Bounds.
          *
          * @type {Number}
          * @public
@@ -34,7 +34,7 @@
         self.y = 0;
 
         /**
-         * The width of the Bounds in pixels.
+         * The width of this Bounds in pixels.
          *
          * @type {Number}
          * @public
@@ -42,7 +42,7 @@
         self.width = 0;
         
         /**
-         * The height of the Bounds in pixels.
+         * The height of this Bounds in pixels.
          *
          * @type {Number}
          * @public
@@ -58,8 +58,8 @@
          * @param {Number} height (optional) the height in pixels.
          */
         function init(x, y, width, height) {
-            self.setX(x);
-            self.setY(y);
+            self.setMinX(x);
+            self.setMinY(y);
             self.setWidth(width);
             self.setHeight(height);
         }
@@ -67,92 +67,141 @@
     }
     
     /**
-     * Set the X coordinate of the Bounds.
+     * Set the X coordinate for the upper-left corner of this Bounds.
      *
      * @param {Number} x the X coordinate.
      * @public
      */
-    Bounds.prototype.setX = function(x) {
+    Bounds.prototype.setMinX = function(x) {
         this.x = (cardmaker.NumberUtil.isNumeric(x)) ? Math.floor(x) : 0;
     }
 
     /**
-     * Returns the X coordinate of the Bounds.
+     * Returns the X coordinate of the upper-left corner of this Bounds.
      *
      * @return {Number} the X coordinate.
      * @public
      */
-    Bounds.prototype.getX = function() {
+    Bounds.prototype.getMinX = function() {
         return this.x;
     }
     
     /**
-     * Set the Y coordinate of the Bounds.
+     * Returns the X coordinate of the lower-right corner of this Bounds.
      *
-     * @param {Number} y the Y coordinate.
+     * The lower-right X coordinate is the same as adding the X coordinate 
+     * of the upper-left corner with the width of this bounds.
+     *
+     * @return {Number} the maximum X coordinate.
      * @public
      */
-    Bounds.prototype.setY = function(y) {
+    Bounds.prototype.getMaxX = function() {
+        return this.x + this.width;
+    }
+    
+    /**
+     * Set the Y coordinate for the upper-left corner of this Bounds.
+     *
+     * @param {Number} x the X coordinate.
+     * @public
+     */
+    Bounds.prototype.setMinY = function(y) {
         this.y = (cardmaker.NumberUtil.isNumeric(y)) ? Math.floor(y) : 0;
     }
     
     /**
-     * Returns the Y coordinate of the Bounds.
+     * Returns the Y coordinate of the upper-left corner of this Bounds.
      *
      * @return {Number} the Y coordinate.
      * @public
      */
-    Bounds.prototype.getY = function() {
+    Bounds.prototype.getMinY = function() {
         return this.y;
     }
     
     /**
-     * Set the width of the Bounds in pixels.
+     * Returns the Y coordinate of the lower-right corner of this Bounds.
+     *
+     * The lower-right Y coordinate is the same as adding the Y coordinate 
+     * of the upper-left corner with the height of this bounds.
+     *
+     * @return {Number} the maximum Y coordinate.
+     * @public
+     */
+    Bounds.prototype.getMaxY = function() {
+        return this.y + this.height;
+    }
+    
+    /**
+     * Set the width of this Bounds in pixels.
      *
      * @param {Number} width the width in pixels.
      * @public
      */
     Bounds.prototype.setWidth = function(width) {
-        this.width = (cardmaker.NumberUtil.isNumeric(width)) ? Math.floor(width) : 0;
+        this.width = (cardmaker.NumberUtil.isNumeric(width) && width > 0) ? Math.floor(width) : 0;
     }
     
     /**
-     * Returns the width of the bounds in pixels.
+     * Returns the width of this bounds in pixels.
      *
      * @return {Number} the width in pixels.
      * @public
      */
     Bounds.prototype.getWidth = function() {
-        return this.width;
+        return Math.max(this.width, 0);
     }
     
     /**
-     * Set the height of the Bounds in pixels.
+     * Set the height of this Bounds in pixels.
      *
      * @param {Number} height the height in pixels.
      * @public
      */
     Bounds.prototype.setHeight = function(height) {
-        this.height = (cardmaker.NumberUtil.isNumeric(height)) ? Math.floor(height) : 0; 
+        this.height = (cardmaker.NumberUtil.isNumeric(height) && height > 0) ? Math.floor(height) : 0; 
     }
     
     /**
-     * Returns the height of the Bounds in pixels.
+     * Returns the height of this Bounds in pixels.
      *
      * @return {Number} the height in pixels.
      * @public
      */
     Bounds.prototype.getHeight = function() {
-        return this.height;
+        return Math.max(this.height, 0);
+    }
+    
+    /**
+     * Returns true if this Bounds does not enclose an area.
+     * 
+     * @return {Boolean} true if the dimensions of this Bounds are less or equal to zero, otherwise false.
+     */
+    Bounds.prototype.isEmpty = function() {
+        return (this.getWidth() <= 0 || this.getHeight() <= 0);
     }
     
     /**
      * Returns a {@link cardmaker.Bounds} object that represents the intersection.
+     * 
+     * If the two bounds don't interset the width and height of the resulting Bounds
+     * object will be zero and is thus considered to be empty.
      *
-     * @param {cardmaker.Bounds|null} the intersection, or null if the bounds don't intersect.
+     * @param {cardmaker.Bounds} a bounds object containing the intersection.
+     * @throws {TypeError} if the specified argument is not a {@link cardmaker.Bounds} object.
      */
-    Bounds.prototype.intersect = function(bounds) {
+    Bounds.prototype.intersection = function(bounds) {
+        if (!(bounds instanceof Bounds)) {
+            throw new TypeError('Bounds expects a cardmaker.Bounds object.');
+        }
+         
+        // compute boundary.
+        var minX   = Math.max(this.getMinX(), bounds.getMinX());
+        var minY   = Math.max(this.getMinY(), bounds.getMinY());
+        var width  = Math.min(this.getMaxX(), bounds.getMaxX()) - minX;
+        var height = Math.min(this.getMaxY(), bounds.getMaxY()) - minY;
         
+        return new Bounds(minX, minY, width, height);
     }
     
     /**
@@ -161,7 +210,15 @@
      * @return {Boolean} true if the bounds intersect, otherwise false.
      */
     Bounds.prototype.intersects = function(bounds) {
-    
+        // the bounds cannot intersect.
+        if (this.isEmpty() || bounds.isEmpty()) {
+            return false;
+        }
+        
+        return (bounds.getMaxX() > this.getMinX() &&
+                bounds.getMaxY() > this.getMinY() &&
+                bounds.getMinX() < this.getMaxX() &&
+                bounds.getMinY() < this.getMaxY());
     }
 
     // add Bounds to namespace.
