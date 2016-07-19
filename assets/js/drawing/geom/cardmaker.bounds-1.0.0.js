@@ -183,7 +183,7 @@
         var contains = false;
         if (bounds instanceof cardmaker.Bounds) {
             contains = (this.contains(bounds.getMinX(), bounds.getMinY()) && 
-                        this.contains(bounds.getMinY(), bounds.getMaxY());
+                        this.contains(bounds.getMaxX(), bounds.getMaxY());
         }
         
         return contains;
