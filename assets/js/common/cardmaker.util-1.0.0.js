@@ -27,7 +27,7 @@
      *
      * @param {Array} src the source to copy.
      * @param {Number} begin (optional) zero-based index from which to start the copy.
-     * @param {Number} end (optional) zero-based index at which to stopt the copy.
+     * @param {Number} end (optional) zero-based index at which to end the copy.
      * @return {Array} a shallow copy of the source.
      * @public
      * @static
