@@ -120,25 +120,6 @@
     }
     
     /**
-     * Merge the location (x,y) of specified point with this one.
-     *
-     * @param {cardmaker.Point} the point whose location to merge.
-     * @return {cardmaker.Point} a new point object containing the result of the merger.
-     * @throws {TypeError} if the specified argument is not a {cardmaker.point} object.
-     * @public
-     */
-    Point.prototype.merge = function(point) {
-        if (point instanceof cardmaker.Point) {
-            throw new TypeError('Point: in order to merge a cardmaker.Point object is expected');
-        }
-    
-        var x = this.getX() + point.getX();
-        var y = this.getY() + point.getY();
-        
-        return new Point(x, y);
-    }
-    
-    /**
      * Returns a point object with the specified coordinates added to the coordinates of this point.
      *
      * @param {Number} x the x-coordinate to add.
@@ -146,10 +127,10 @@
      * @retunr {cardmaker.Point} a point object with the added coordinates.
      */
     Point.prototype.add = function(x, y) {
-        x = (cardmaker.NumberUtil.isInt(arguments[0])) ? arguments[0] : 0;
-        y = (cardmaker.NumberUtil.isInt(arguments[1])) ? arguments[1] : 0;
+        x = (cardmaker.NumberUtil.isInt(x)) ? x : 0;
+        y = (cardmaker.NumberUtil.isInt(y)) ? y : 0;
         
-        return new Point ((this.getX() + x), (this.getY() + y));
+        return new Point((this.getX() + x), (this.getY() + y));
     }
     
     /**
@@ -160,10 +141,10 @@
      * @retunr {cardmaker.Point} a point object with the subtracted coordinates.
      */
     Point.prototype.subtract = function(x, y) {
-        x = (cardmaker.NumberUtil.isInt(arguments[0])) ? arguments[0] : 0;
-        y = (cardmaker.NumberUtil.isInt(arguments[1])) ? arguments[1] : 0;
+        x = (cardmaker.NumberUtil.isInt(x)) ? x : 0;
+        y = (cardmaker.NumberUtil.isInt(y)) ? y : 0;
         
-        return new Point ((this.getX() - x), (this.getY() - y));
+        return new Point((this.getX() - x), (this.getY() - y));
     }
     
     /**
