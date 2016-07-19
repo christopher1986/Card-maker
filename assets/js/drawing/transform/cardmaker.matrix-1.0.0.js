@@ -103,7 +103,7 @@
     /**
      * Applies a rototation to the transformation matrix.
      *
-     * The angle by which to rotate the transformation matrix is expressed in radians, not degress. So if necessary 
+     * The angle by which to rotate the transformation matrix is expressed in radians, not degrees. So if necessary 
      * use the {@link cardmaker.Converter#degreesToRadians} method to convert an angle in degrees into radians.
      *
      * @param {Number} radians the angle in 
