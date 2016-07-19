@@ -232,8 +232,8 @@
     /**
      * Returns a {@link cardmaker.Bounds} object that represents the intersection.
      * 
-     * If the two bounds don't interset the width and height of the resulting Bounds
-     * object will be zero and is thus considered to be empty.
+     * If the two bounds don't intersect the width and height of the resulting Bounds
+     * object will be zero and is therefore considered to be empty.
      *
      * @param {cardmaker.Bounds} a bounds object containing the intersection.
      * @throws {TypeError} if the specified argument is not a {@link cardmaker.Bounds} object.
