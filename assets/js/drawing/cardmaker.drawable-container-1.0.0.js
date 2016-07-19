@@ -189,7 +189,7 @@
     DrawableContainer.prototype.removeChildAt = function(index) {
         var child = this.getChildAt(index);
         if (this.isAllowed(child)) {
-            var children = = this.children.splice(index, 1);
+            var children = this.children.splice(index, 1);
             if (children.length && this.isAllowed(children[0])) {
                 // remove parent from child.
                 children[0].setParent(null);
