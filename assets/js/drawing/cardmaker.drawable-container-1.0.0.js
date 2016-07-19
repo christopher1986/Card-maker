@@ -2,8 +2,8 @@
     "use strict";
     
     /**
-     * The DrawableContainer represents a composite of {@link cardmaker.Drawable} objects and is the base class for
-     * all drawable objects that have children.
+     * The DrawableContainer represents a composite of {@link cardmaker.Drawable} objects and is the base class 
+     * for drawable objects that have children.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
@@ -92,7 +92,7 @@
     /**
      * Returns the child at the specified position in this container.
      *
-     * @paran {Numbe} index the position of the child to return.
+     * @paran {Number} index the position of the child to return.
      * @return {cardmaker.Drawable|null} the child at the specified position, or null on failure.
      * @public
      */
@@ -189,7 +189,7 @@
     DrawableContainer.prototype.removeChildAt = function(index) {
         var child = this.getChildAt(index);
         if (this.isAllowed(child)) {
-            var children = = this.children.splice(index, 1);
+            var children = this.children.splice(index, 1);
             if (children.length && this.isAllowed(children[0])) {
                 // remove parent from child.
                 children[0].setParent(null);
@@ -240,13 +240,13 @@
     }
     
     /**
-     * Tests whether the specified argument is a {@link cardmaker.Drawable} object.
+     * Tests whether the specified child is a {@link cardmaker.Drawable} object.
      *
-     * @param {*} object the argument whose type to test.
+     * @param {*} child the child whose type to test.
      * @return {Boolean} true if the specified argument is drawable object, otherwise false.
      */
-    Drawable.prototype.isAllowed = function(object) {
-        return (object instanceof cardmaker.Drawable);
+    Drawable.prototype.isAllowed = function(child) {
+        return (child instanceof cardmaker.Drawable);
     }
     
     // add DrawableContainer to namespace.

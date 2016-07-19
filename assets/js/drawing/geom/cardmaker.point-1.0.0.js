@@ -120,22 +120,49 @@
     }
     
     /**
-     * Merge the location (x,y) of specified point with this one.
+     * Returns a point object with the specified coordinates added to the coordinates of this point.
      *
-     * @param {cardmaker.Point} the point whose location to merge.
-     * @return {cardmaker.Point} a new point object containing the result of the merger.
-     * @throws {TypeError} if the specified argument is not a {cardmaker.point} object.
-     * @public
+     * @param {Number} x the x-coordinate to add.
+     * @param {Number} y the y-coordinate to add.
+     * @retunr {cardmaker.Point} a point object with the added coordinates.
      */
-    Point.prototype.merge = function(point) {
-        if (point instanceof cardmaker.Point) {
-            throw new TypeError('Point: in order to merge a cardmaker.Point object is expected');
-        }
-    
-        var x = this.getX() + point.getX();
-        var y = this.getY() + point.getY();
+    Point.prototype.add = function(x, y) {
+        x = (cardmaker.NumberUtil.isInt(x)) ? x : 0;
+        y = (cardmaker.NumberUtil.isInt(y)) ? y : 0;
         
-        return new Point(x, y);
+        return new Point((this.getX() + x), (this.getY() + y));
+    }
+    
+    /**
+     * Returns a point object with the specified coordinates subtracted from the coordinates of this point.
+     *
+     * @param {Number} x the x-coordinate to subtract.
+     * @param {Number} y the y-coordinate to subtract.
+     * @retunr {cardmaker.Point} a point object with the subtracted coordinates.
+     */
+    Point.prototype.subtract = function(x, y) {
+        x = (cardmaker.NumberUtil.isInt(x)) ? x : 0;
+        y = (cardmaker.NumberUtil.isInt(y)) ? y : 0;
+        
+        return new Point((this.getX() - x), (this.getY() - y));
+    }
+    
+    /**
+     * Creates a new point from the specified {@link cardmaker.Bounds} object.
+     *
+     * @param {cardmaker.Bounds} bounds the bounds from which to create a new point.
+     * @return {cardmaker.Point} a point object.
+     * @public
+     * @static
+     */
+    Point.createFromBounds = function(bounds) {
+        var point = new Point();
+        if (bounds instanceof cardmaker.Bounds) {
+            point.setX(bounds.getX());
+            point.setY(bounds.getY());
+        }
+        
+        return point;
     }
     
     // add Point to namespace.

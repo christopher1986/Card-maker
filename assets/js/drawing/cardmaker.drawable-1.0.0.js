@@ -61,28 +61,20 @@
         var self = this;
         
         /**
+         * The boundaries of this drawable.
+         *
+         * @typedef {cardmaker.Bounds}
+         * @private
+         */
+        self.bounds = new cardmaker.Bounds();
+        
+        /**
          * A drawable object that contains this drawable.
          *
          * @typedef {cardmaker.Drawable}
          * @private
          */
         self.parent = null;
-        
-        /**
-         * The x coordinate relative to the parent location.
-         *
-         * @type {Number}
-         * @private
-         */ 
-        self.x = 0;
-        
-        /**
-         * The y coordinate relative to the parent location.
-         *
-         * @type {Number}
-         * @private
-         */
-        self.y = 0;
         
         /**
          * A transformation matrix. 
@@ -107,7 +99,7 @@
      * and allow the canvas to compute if other objects should be invalidated and redrawn.
      *
      * @param {cardmaker.Canvas} canvas the canvas on which to draw.
-     * @public
+     * @private
      * @abstract
      */
     Drawable.prototype.draw = function(canvas) {
@@ -150,18 +142,48 @@
     }
     
     /**
+     * Returns a {@link cardmaker.Bounds} object containing the global boundaries.
+     *
+     * @return {@cardmaker.Bounds} the global boundaries.
+     */
+    Drawable.prototype.getBounds = function() {
+        var bounds = this.getLocalBounds();
+        var point  = this.localToGlobal(cardmaker.Point.createFromBounds(bounds));
+            
+        bounds.setX(point.getX());
+        bounds.setY(point.getY());
+        
+        return bounds;
+    }
+    
+    /**
+     * Returns a {@link cardmaker.Bounds} object containing the local boundaries.
+     *
+     * The boundaries returned by this method may be same as the {@link cardmaker.Drawable#getBounds()} method
+     * if this node has no parent and instead has been added directly to the canvas.
+     *
+     * @return {cardmaker.Bounds} the local boundaries.
+     */
+    Drawable.prototype.getLocalBounds = function() {
+        var bounds = new cardmaker.Bounds();
+        if (this.bounds instanceof cardmaker.Bounds) {
+            bounds.setX(this.getX());
+            bounds.setY(this.getY());
+            bounds.setWidth(this.getWidth());
+            bounds.setHeight(this.getHeight());
+        }
+        
+        return bounds;
+    }
+    
+    /**
      * Set the x coordinate of this drawable which will be relative to the parent location. 
      *
      * @param {Number} x the x coordinates of the drawable.
-     * @throws {TypeError} if the specified argument is not a numeric value.
      * @public
      */
-    Drawable.prototype.setX= function(x) {
-        if (!cardmaker.NumberUtil.isNumeric(x)) {
-            throw new TypeError('Drawable expects the x coordinate to be a numeric value.')
-        }
-        
-        this.x = x;
+    Drawable.prototype.setX= function(x) {        
+        this.bounds.setX(x);
     }
     
     /**
@@ -171,22 +193,17 @@
      * @public
      */
     Drawable.prototype.getX = function() {
-        return this.x;
+        return this.bounds.getX();
     }
     
     /**
      * Set the y coordinate of this drawable which will be relative to the parent location. 
      *
      * @param {Number} y the y coordinates of the drawable.
-     * @throws {TypeError} if the specified argument is not a numeric value.
      * @public
      */
-    Drawable.prototype.setY = function(y) {
-        if (!cardmaker.NumberUtil.isNumeric(y)) {
-            throw new TypeError('Drawable expects the y coordinate to be a numeric value.')
-        }
-        
-        this.y = y;
+    Drawable.prototype.setY = function(y) {       
+        this.bounds.setY(y);
     }
     
     /**
@@ -196,7 +213,43 @@
      * @public
      */
     Drawable.prototype.getY = function() {
-        return this.y;
+        return this.bounds.getY();
+    }
+    
+    /**
+     * Set the width of this drawable in pixels.
+     *
+     * @param {Number} width the width of the drawable.
+     */
+    Drawable.prototype.setWidth = function(width) {      
+        this.bounds.setWidth(width);
+    }
+    
+    /**
+     * Returns the width of this drawable in pixels.
+     *
+     * @return {Number} the width of the drawable.
+     */
+    Drawable.prototype.getWidth = function() {
+        return this.bounds.getWidth();
+    }
+    
+    /**
+     * Set the height of this drawable in pixels.
+     *
+     * @param {Number} height the height of the drawable.
+     */
+    Drawable.prototype.setHeight = function(height) {
+        this.bounds.setHeight(height);
+    }
+    
+    /**
+     * Returns the height of this drawable in pixels.
+     *
+     * @return {Number} the height of the drawable.
+     */
+    Drawable.prototype.getHeight = function() {
+        return this.bounds.getHeight();
     }
     
     /**
@@ -207,7 +260,13 @@
      * @public
      */
     Drawable.prototype.localToGlobal = function(point) {
-    
+        var parent = this.getParent();
+        while (parent instanceof cardmaker.Drawable) {            
+            point  = point.add(parent.bounds.getX(), parent.bounds.getY());
+            parent = parent.getParent();
+        }
+        
+        return point;
     }
     
     /**
@@ -218,7 +277,13 @@
      * @public
      */
     Drawable.prototype.globalToLocal = function(point) {
-    
+        var parent = this.getParent();
+        while (parent instanceof cardmaker.Drawable) {
+            point  = point.subtract(parent.bounds.getX(), parent.bounds.getY());
+            parent = parent.getParent();
+        }
+        
+        return point;
     }
     
     // add Drawable to namespace.
