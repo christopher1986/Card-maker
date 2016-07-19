@@ -173,9 +173,57 @@
     }
     
     /**
+     * Tests if the boundary of the specified bounds is entirely contained within the boundary of this bounds.
+     *
+     * @param {cardmaker.Bounds} bounds the bounds whose boundary to test.
+     * @return {Boolean} true if the specified bounds is contained within this bounds, otherwise false.
+     * @public
+     */
+    Bounds.prototype.containsBounds = function(bounds) {
+        var contains = false;
+        if (bounds instanceof cardmaker.Bounds) {
+            contains = (this.contains(bounds.getMinX(), bounds.getMinY()) && 
+                        this.contains(bounds.getMaxX(), bounds.getMaxY());
+        }
+        
+        return contains;
+    }
+    
+    /**
+     * Tests if the specified point is inside the boundary of this bounds.
+     *
+     * @param {cardmaker.Point} point the point to test.
+     * @return {Boolean} true if the specified point is inside the boundary of this bounds.
+     * @see {@link cardmaker.Bounds#contains(x, y)}
+     * @public
+     */
+    Bounds.prototype.containsPoint = function(point) {
+        var contains = false;
+        if (point instanceof cardmaker.Point) {
+            contains = this.contains(point.getX(), point.getY());
+        }
+        
+        return contains;
+    }
+    
+    /**
+     * Tests if the specified (x, y) coordinates are inside the boundary of this bounds.
+     *
+     * @param {Number} x the X coordinate to test.
+     * @param {Number} y the Y coordinate to test.
+     * @return {Boolean} true if the specified coordinates are inside the boundary of this bounds, otherwise false.
+     * @public
+     */
+    Bounds.prototype.contains = function(x, y) {
+        return (x >= this.getMinX() && x <= this.getMaxX() && 
+                y >= this.getMinY() && y <= this.getMaxY());
+    }
+    
+    /**
      * Returns true if this Bounds does not enclose an area.
      * 
      * @return {Boolean} true if the dimensions of this Bounds are less or equal to zero, otherwise false.
+     * @public
      */
     Bounds.prototype.isEmpty = function() {
         return (this.getWidth() <= 0 || this.getHeight() <= 0);
@@ -189,6 +237,7 @@
      *
      * @param {cardmaker.Bounds} a bounds object containing the intersection.
      * @throws {TypeError} if the specified argument is not a {@link cardmaker.Bounds} object.
+     * @public
      */
     Bounds.prototype.intersection = function(bounds) {
         if (!(bounds instanceof Bounds)) {
@@ -208,6 +257,7 @@
      * Tests whether this bounds intersects with the specified {@link cardmaker.Bounds} object.
      *
      * @return {Boolean} true if the bounds intersect, otherwise false.
+     * @public
      */
     Bounds.prototype.intersects = function(bounds) {
         // the bounds cannot intersect.
