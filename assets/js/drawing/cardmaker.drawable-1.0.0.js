@@ -183,7 +183,7 @@
      * @public
      */
     Drawable.prototype.setX= function(x) {        
-        this.bounds.setX(x);
+        this.bounds.setMinX(x);
     }
     
     /**
@@ -193,7 +193,7 @@
      * @public
      */
     Drawable.prototype.getX = function() {
-        return this.bounds.getX();
+        return this.bounds.getMinX();
     }
     
     /**
@@ -203,7 +203,7 @@
      * @public
      */
     Drawable.prototype.setY = function(y) {       
-        this.bounds.setY(y);
+        this.bounds.setMinY(y);
     }
     
     /**
@@ -213,7 +213,7 @@
      * @public
      */
     Drawable.prototype.getY = function() {
-        return this.bounds.getY();
+        return this.bounds.getMinY();
     }
     
     /**
@@ -262,7 +262,7 @@
     Drawable.prototype.localToGlobal = function(point) {
         var parent = this.getParent();
         while (parent instanceof cardmaker.Drawable) {            
-            point  = point.add(parent.bounds.getX(), parent.bounds.getY());
+            point  = point.add(parent.bounds.getMinX(), parent.bounds.getMinY());
             parent = parent.getParent();
         }
         
@@ -279,7 +279,7 @@
     Drawable.prototype.globalToLocal = function(point) {
         var parent = this.getParent();
         while (parent instanceof cardmaker.Drawable) {
-            point  = point.subtract(parent.bounds.getX(), parent.bounds.getY());
+            point  = point.subtract(parent.bounds.getMinX(), parent.bounds.getMinY());
             parent = parent.getParent();
         }
         
