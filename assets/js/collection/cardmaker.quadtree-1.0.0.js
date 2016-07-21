@@ -116,10 +116,8 @@
                 var childIndex;
                 for (childIndex = this.children.length; childIndex > 0; childIndex--) {
                     var nodeIndex = this.getIndex(this.children[childIndex]);
-                    if (nodeIndex !== -1) {
-                        if (this.quadrants[nodeIndex].insert(element)) {
-                            this.children.splice(childIndex, 1);                        
-                        }
+                    if (nodeIndex !== -1 && this.quadrants[nodeIndex].insert(element)) {
+                        this.children.splice(childIndex, 1);
                     }
                 }
             }
