@@ -298,15 +298,10 @@
          *
          * @param {cardmaker.Bounds} bounds - the boundaries of the quadtree.
          * @param {Object} args - (optional) the options for this quadtree.
-         * @throws {TypeError} if the first argument is not a {@link cardmaker.Bounds} object.
          * @see {@link Node#init(bounds, depth, options)}
          * @private
          */
         function init(bounds, args) {
-            if (!(bounds instanceof cardmaker.Bounds)) {
-                throw new TypeError('QuadTree expects a cardmaker.Bounds object.');
-            }
-
             self.root = new Node(bounds, 0, args);
         }
         init(bounds, args);
