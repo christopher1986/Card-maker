@@ -28,7 +28,8 @@
         /**
          * Initialize the InvalidateEvent.
          *
-         * @param {String} the event type.
+         * @param {String} type - the event type.
+         * @param {cardmaker.Drawable} target - the Drawable that has been invalidated.
          * @private
          */
         function init(type, target) {
@@ -43,6 +44,84 @@
     // inherit from cardmaker.Event. 
     InvalidateEvent.prototype = Object.create(cardmaker.Event.prototype);
     InvalidateEvent.prototype.constructor = InvalidateEvent;
+    
+    /**
+     * The Lock is a control mechanism that can be used to allow or deny access to resources or operations.
+     *
+     * @author Chris Harris <chris@webwijs.nu>
+     * @version 1.0.0
+     * @since 1.1.0
+     */
+    function Lock(locked) {
+        /**
+         * A reference to this object.
+         *
+         * @typedef {Lock}
+         * @private
+         */
+        var self = this;
+        
+        /**
+         * The lock state.
+         *
+         * @type {Boolean}
+         * @public
+         */
+        self.locked = false;
+        
+        /**
+         * Initialize the Lock.
+         *
+         * @param {Boolean} locked the initial lock state.
+         * @private
+         */
+        function init(locked) {
+            self.locked = (typeof locked === 'boolean') ? locked : false;
+        }
+        init(locked);
+    }
+    
+    /**
+     * Acquires the lock.
+     *
+     * @public
+     */
+    Lock.prototype.lock = function() {
+        this.locked = true;
+    }
+    
+    /**
+     * Acquire the lock only if is free at the time of invocation.
+     *
+     * @return {Boolean} true if the lock was acquired, otherwise false.
+     */
+    Lock.prototype.tryLock = function() {
+        var acquirable = (this.isLocked() === false);
+        if (acquirable) {
+            this.lock();
+        }
+        
+        return acquirable;
+    }
+        
+    /**
+     * Release the lock.
+     *
+     * @public
+     */
+    Lock.prototype.unlock = function() {
+        this.locked = false;
+    }
+    
+    /**
+     * Returns true if the lock is active.
+     *
+     * @return {Boolean} true if the lock is active, otherwise false.
+     * @public
+     */
+    Lock.prototype.isLocked = function() {
+        return (this.locked === true);
+    }
     
     /**
      * The Drawable class represents "something that can be drawn" onto a {@link cardmaker.Canvas} object.
@@ -82,10 +161,29 @@
          * @typedef {cardmaker.Matrix}
          * @private
          */
-        self.matrix = new cardmaker.Matrix();
+        self.matrix = null;
         
-        // call parent constructor.
-        cardmaker.MVCObject.call(self);
+        /**
+         * A lock that prevents the drawable from being invalidated while drawing.
+         *
+         * @typedef {Lock}
+         * @private
+         */
+        self.lock = new Lock();
+        
+        /**
+         * Initialize the Drawable.
+         *
+         * @private
+         */
+        function init() {
+            // call parent constructor.
+            cardmaker.MVCObject.call(self);
+            
+            self.matrix = new cardmaker.Matrix();
+            self.matrix.addChangeListener(self.invalidate.bind(self));
+        }
+        init();
     }
     
     // inherit from cardmaker.MVCObject.
@@ -93,33 +191,53 @@
     Drawable.prototype.constructor = Drawable;
     
     /**
-     * Draw this {@link Drawable} onto the specified {@link cardmaker.Canvas}.
+     * Draw this {@link cardmaker.Drawable} onto the specified {@link cardmaker.Canvas}.
      *
-     * Don't call this method directly, instead call the {@link Drawable#invalidate()} method
-     * and allow the canvas to compute if other objects should be invalidated and redrawn.
+     * The draw method ensures that the {@link cardmaker.Drawable#invalidate()} method is locked 
+     * for the duration of the draw operation and this allows the properties of a drawable to be
+     * changed from the {@link cardmaker.onDraw(canvas}} method.
      *
-     * @param {cardmaker.Canvas} canvas the canvas on which to draw.
+     * @param {cardmaker.Canvas} canvas - the canvas on which to draw.
+     * @see {@link cardmaker.Drawable#onDraw(canvas)
      * @private
-     * @abstract
      */
     Drawable.prototype.draw = function(canvas) {
+        if (this.lock.tryLock()) {
+            this.onDraw(canvas);
+            this.lock.unlock();
+        }
+    }
+    
+    /**
+     * Draw this {@link cardmaker.Drawable} onto the specified {@link cardmaker.Canvas}.
+     *
+     * Don't call this method directly, instead call the {@link cardmaker.Drawable#invalidate()} method
+     * and allow the canvas to compute if other objects should be invalidated and redrawn.
+     *
+     * @param {cardmaker.Canvas} canvas - the canvas on which to draw.
+     * @public
+     * @abstract
+     */
+    Drawable.prototype.onDraw = function(canvas) {
         throw new Error('This method must be implemented by a subclass.');
     }
     
     /**
-     * Invalidate this {@link Drawable} and redraw it at some point in the future.
+     * Invalidate this {@link cardmaker.Drawable} and redraw it at some point in the future.
      *
-     * @see {@link Drawable#draw(canvas)}
+     * @see {@link cardmaker.Drawable#draw(canvas)}
      * @public
      */
     Drawable.prototype.invalidate = function() {
-        this.on('invalidate', new InvalidateEvent('invalidate', this));
+        if (!this.lock.isLocked()) {
+            this.dispatch('invalidate', new InvalidateEvent('invalidate', this));
+        }
     }
     
     /**
      * Set the parent of this drawable.
      *
-     * @param {cardmaker.DrawableContainer|null} parent the parent of this drawable, or null to remove the current parent.
+     * @param {cardmaker.DrawableContainer|null} parent - the parent of this drawable, or null to remove the current parent.
      * @throws {TypeError} if the specified argument is not a {@link cardmaker.DrawableContainer} or null literal.
      * @public
      */
@@ -179,7 +297,7 @@
     /**
      * Set the x coordinate of this drawable which will be relative to the parent location. 
      *
-     * @param {Number} x the x coordinates of the drawable.
+     * @param {Number} x - the x coordinates of the drawable.
      * @public
      */
     Drawable.prototype.setX= function(x) {        
@@ -199,7 +317,7 @@
     /**
      * Set the y coordinate of this drawable which will be relative to the parent location. 
      *
-     * @param {Number} y the y coordinates of the drawable.
+     * @param {Number} y - the y coordinates of the drawable.
      * @public
      */
     Drawable.prototype.setY = function(y) {       
@@ -219,7 +337,7 @@
     /**
      * Set the width of this drawable in pixels.
      *
-     * @param {Number} width the width of the drawable.
+     * @param {Number} width - the width of the drawable.
      */
     Drawable.prototype.setWidth = function(width) {      
         this.bounds.setWidth(width);
@@ -237,7 +355,7 @@
     /**
      * Set the height of this drawable in pixels.
      *
-     * @param {Number} height the height of the drawable.
+     * @param {Number} height - the height of the drawable.
      */
     Drawable.prototype.setHeight = function(height) {
         this.bounds.setHeight(height);
@@ -255,8 +373,8 @@
     /**
      * Converts the point object from the drawable (local) coordinates to the canvas (global) coordinates.
      *
-     * @param {cardmaker.Point} point the local coordinates to convert.
-     * @return {cardmaker.Point} point object containing the global coordinates.
+     * @param {cardmaker.Point} point - the local coordinates to convert.
+     * @return {cardmaker.Point} a Point object containing the global coordinates.
      * @public
      */
     Drawable.prototype.localToGlobal = function(point) {
@@ -272,8 +390,8 @@
     /**
      * Converts the point object from the canvas (global) coordinates to the drawable (local) coordinates.
      *
-     * @param {cardmaker.Point} point the global coordinates to convert.
-     * @return {cardmaker.Point} point object containing the local coordinates.
+     * @param {cardmaker.Point} point - the global coordinates to convert.
+     * @return {cardmaker.Point} a Point object containing the local coordinates.
      * @public
      */
     Drawable.prototype.globalToLocal = function(point) {

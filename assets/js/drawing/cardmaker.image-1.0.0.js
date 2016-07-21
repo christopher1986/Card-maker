@@ -36,7 +36,7 @@
         /**
          * Initialize the Image.
          *
-         * @param {String} src the URL of an image.
+         * @param {String} src - the URL of an image.
          * @private
          */
         function init(src) {      
@@ -45,8 +45,8 @@
         
             self.image = new window.Image();
             self.image.onload = function(event) {
-                self.loaded = true;
-                self.dispatch(new cardmaker.InvalidateEvent('invalidate', self));
+                self.loaded = true;                
+                self.invalidate.call(self);
             };
             self.image.src = src;
         }
@@ -60,10 +60,10 @@
     /**
      * Draw the image onto the specified {@link cardmaker.Canvas}.
      *
-     * @param {cardmaker.Canvas} canvas the canvas on which to draw.
+     * @param {cardmaker.Canvas} canvas - the canvas on which to draw.
      * @public
      */
-    Image.prototype.draw = function(canvas) {
+    Image.prototype.onDraw = function(canvas) {
         if (!this.loaded) {
             return; // still loading image.
         }
