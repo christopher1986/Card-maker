@@ -98,9 +98,9 @@
         if (this.isAllowed(element)) {
             // insert into a quadrant.
             if (this.hasQuadrants()) {
-                var index = this.getIndex(element);
-                if (index !== -1) {
-                    return this.quadrants[index].insert(element);
+                var nodeIndex = this.getIndex(element);
+                if (nodeIndex !== -1) {
+                    return this.quadrants[nodeIndex].insert(element);
                 }
                 
                 // element doesn't fit into a quadrant.
@@ -113,8 +113,14 @@
             if (this.children.length > this.options.maxChildren && this.depth < this.options.maxDepth) {
                 this.subdivide();
                 
-                while (this.children.length) {
-                    this.insert(this.children.pop());
+                var childIndex;
+                for (childIndex = this.children.length; childIndex > 0; childIndex--) {
+                    var nodeIndex = this.getIndex(this.children[childIndex]);
+                    if (nodeIndex !== -1) {
+                        if (this.quadrants[nodeIndex].insert(element)) {
+                            this.children.splice(childIndex, 1);                        
+                        }
+                    }
                 }
             }
         }
