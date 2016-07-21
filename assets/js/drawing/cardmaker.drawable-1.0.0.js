@@ -48,9 +48,9 @@
     /**
      * The Lock is a control mechanism that can be used to allow or deny access to resources or operations.
      *
-     * @author Chris Harris <chris@webwijs.nu>
+     * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
-     * @since 1.1.0
+     * @since 1.0.0
      */
     function Lock(locked) {
         /**
