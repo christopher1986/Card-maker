@@ -181,7 +181,7 @@
             cardmaker.MVCObject.call(self);
             
             self.matrix = new cardmaker.Matrix();
-            self.matrix.addChangeListener(self.invalidate.bind(self));
+            self.matrix.addChangeListener(self.onPropertyChange.bind(self));
         }
         init();
     }
@@ -229,9 +229,7 @@
      * @public
      */
     Drawable.prototype.invalidate = function() {
-        if (!this.lock.isLocked()) {
-            this.dispatch('invalidate', new InvalidateEvent('invalidate', this));
-        }
+        this.dispatch('invalidate', new InvalidateEvent('invalidate', this));
     }
     
     /**
@@ -402,6 +400,20 @@
         }
         
         return point;
+    }
+    
+    /**
+     * Invalidate the drawable when it's properties have changed.
+     *
+     * @param {cardmaker.Event} event - an Event object containing details about this event.
+     * @see {@cardmaker.Drawable#invalidate()}
+     * @see {@link Lock}
+     * @public
+     */
+    Drawable.prototype.onPropertyChange = function(event) {
+        if (!this.lock.isLocked()) {
+            this.invalidate();
+        }
     }
     
     // add Drawable to namespace.
