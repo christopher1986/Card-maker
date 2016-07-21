@@ -36,8 +36,8 @@
         /**
          * Initialize the Layer.
          *
-         * @param {String} src the image source.
-         * @param {String} text the text to display.
+         * @param {String} src - the image source.
+         * @param {String} text - the text to display.
          * @private
          */
         function init(src, text) {
@@ -102,7 +102,7 @@
         /**
          * Initialize the LayerPanel.
          *
-         * @param {HTMLElement} element the HTML element.
+         * @param {HTMLElement} element - the HTML element.
          * @throws {TypeError} if the specified argument is not an HTMLElement.
          * @private
          */
@@ -129,7 +129,7 @@
     /**
      * Set the canvas to which this panel will be attached.
      *
-     * @param {cardmaker.Canvas} canvas the canvas to which this panel will be attached.
+     * @param {cardmaker.Canvas} canvas - the canvas to which this panel will be attached.
      * @throws {TypeError} if the specified argument is not a canvas.
      */
     LayerPanel.prototype.setCanvas = function(canvas) {
@@ -150,7 +150,7 @@
     /**
      * Create a new layer for the newly created drawable.
      *
-     * @param {ProgressEvent} event object containing details about this event.
+     * @param {ProgressEvent} event -  an Event object containing details about this event.
      */
     LayerPanel.prototype.onUploadFinished = function(event) {
         var number = (this.list.size() + 1);

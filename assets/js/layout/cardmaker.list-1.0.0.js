@@ -58,7 +58,7 @@
     /**
      * Append the specified node to the end of the list.
      *
-     * @param {window.Node} node the node to append.
+     * @param {window.Node} node - the node to append.
      * @return {Boolean} true if the node was appended, otherwise false.
      * @public
      */
@@ -74,7 +74,7 @@
     /**
      * Append the collection of nodes to the end of the list.
      *
-     * @param {window.Node[]} nodes the collection of nodes to append.
+     * @param {window.Node[]} nodes - the collection of nodes to append.
      * @return {Boolean} true if at least one node was appended, otherwise false.
      * @public
      */    
@@ -93,7 +93,7 @@
     /**
      * Remove the node at the specified position from this list.
      *
-     * @param {Number} index the index of the node to be removed.
+     * @param {Number} index - the index of the node to be removed.
      * @return {window.Node|null} the node that was removed, or null if no node was found.
      * @public
      */    
@@ -113,7 +113,7 @@
     /**
      * Remove if present the specified node from this list.
      *
-     * @param {window.Node} node the node to remove.
+     * @param {window.Node} node - the node to remove.
      * @return {Boolean} true if the node was removed, otherwise false.
      * @public
      */
@@ -124,7 +124,7 @@
     /**
      * Remove one or more nodes contained by the collection from this list.
      *
-     * @param {window.Node[]} nodes the collection of nodes to remove.
+     * @param {window.Node[]} nodes - the collection of nodes to remove.
      * @return {Boolean} true if at least one node was removed, otherwise false.
      * @public
      */
@@ -143,8 +143,8 @@
     /**
      * Insert an node at the specified index.
      *
-     * @param {Number} index the index at which to insert the node.
-     * @param {window.Node} node the node to insert.
+     * @param {Number} index - the index at which to insert the node.
+     * @param {window.Node} node - the node to insert.
      * @return {Boolean} true if the node was inserted, otherwise false.
      * @public
      */
@@ -166,7 +166,7 @@
     /**
      * Tests whether the specified is contained within this list.
      *
-     * @param {window.Node} node the node whose presence will be tested.
+     * @param {window.Node} node - the node whose presence will be tested.
      * @return {Boolean} true if the node exists within this list, otherwise false.
      * @public
      */
@@ -177,7 +177,7 @@
     /**
      * Returns the index of the first occurrence of the specified node in this list.
      *
-     * @param {window.Node} node the node to search for.
+     * @param {window.Node} node - the node to search for.
      * @return {Number} the index associated with the node, or -1 on failure.
      * @public
      */
@@ -199,7 +199,7 @@
     /**
      * Returns the index of the last occurrence of the specified node in this list.
      *
-     * @param {window.Node} node the node to search for.
+     * @param {window.Node} node - the node to search for.
      * @return {Number} the index associated with the node, or -1 on failure.
      * @public
      */

@@ -74,7 +74,7 @@
     /**
      * Add the specified {@link HTMLElement} as a file handler.
      *
-     * @param {HTMLElement} the element to use as file hander.
+     * @param {HTMLElement} element - the element to use as file hander.
      * @return {boolean} true if the element was registered as a file handler, otherwise false.
      * @public
      */
@@ -97,7 +97,7 @@
     /**
      * Remove the specified {@link HTMLElement} as a file handler.
      *
-     * @param {EventTarget} the element to remove as file handler.
+     * @param {EventTarget} element - the element to remove as file handler.
      * @public
      */
     FileManager.prototype.removeElement = function(element) {
@@ -111,7 +111,7 @@
     /**
      * Upload files that are selected using an input field.
      *
-     * @param {Event} event object containing details about this event.
+     * @param {Event} event - an Event object containing details about this event.
      */
     FileManager.prototype.handleFileSelect = function(event) {
         event.stopPropagation();
@@ -126,7 +126,7 @@
     /**
      * Upload files that are dropped onto a droppable area.
      *
-     * @param {Event} event object containing details about this event.
+     * @param {Event} event - an Event object containing details about this event.
      */
     FileManager.prototype.handleFileDrop = function(event) {
         event.stopPropagation();
@@ -141,7 +141,7 @@
     /**
      * Prevents this action from being delegated.
      *
-     * @param {Event} event object containing details about this event.
+     * @param {Event} event - an Event object containing details about this event.
      */
     FileManager.prototype.handleDragOver = function(event) {
         event.stopPropagation();
@@ -152,7 +152,7 @@
     /**
      * Redispatch events from the {@link cardmaker.FileUploader} object.
      *
-     * @param {cardmaker.Event} event the event that will be dispatched.
+     * @param {cardmaker.Event} event - the event that will be dispatched.
      */
     FileManager.prototype.redispatchEvent = function(event) {
         this.dispatch(event);

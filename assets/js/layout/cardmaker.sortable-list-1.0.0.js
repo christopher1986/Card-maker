@@ -57,7 +57,7 @@
             }
 
             if (list instanceof cardmaker.ObservableList) {
-                list.addListener(self.onListChange.bind(self)); 
+                list.addChangeListener(self.onListChange.bind(self)); 
             }
             
             decoratee = list;
@@ -212,7 +212,7 @@
     /**
      * Tests whether the specified element is sortable.
      *
-     * @param {Element} element the element to test whether it is sortable.
+     * @param {Element} element - the element to test whether it is sortable.
      * @return {Boolean} true if the element is sortable, otherwise false.
      */
     SortableList.prototype.isSortable = function(element) {
@@ -227,7 +227,7 @@
     /**
      * Tests whether the specified element can be sortable.
      *
-     * @param {*} element the element to test whether it can be sortable.
+     * @param {*} element - the element to test whether it can be sortable.
      * @return {Boolean} true if the element can be sortable, otherwise false.
      * @public
      */
@@ -238,7 +238,7 @@
     /**
      * Allow the specified element to be sortable.
      *
-     * @param {window.Element} element the element to make sortable.
+     * @param {window.Element} element - the element to make sortable.
      * @throws TypeError if the specified argument is not an Element object.
      */
     SortableList.prototype.enableSort = function(element) {

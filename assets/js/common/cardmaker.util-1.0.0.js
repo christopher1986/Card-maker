@@ -13,9 +13,9 @@
     /**
      * Swap the elements at the specified positions in the specified array.
      *
-     * @param {Array} src the array containing the elements to swap.
-     * @param {Number} i the index of the first element to swap.
-     * @param {Number} j the index of the second element to swap with.
+     * @param {Array} src - the array containing the elements to swap.
+     * @param {Number} i - the index of the first element to swap.
+     * @param {Number} j - the index of the second element to swap with.
      * @public
      * @static
      */
@@ -28,7 +28,7 @@
     /**
      * Tests whether the specified argument is an array.
      *
-     * @param {*} obj the argument whose type will be tested.
+     * @param {*} obj - the argument whose type will be tested.
      * @return {Boolean} true if the argument is an array, otherwise false.
      * @public
      * @static
@@ -40,9 +40,9 @@
     /**
      * Returns a shallow copy of the specified array.
      *
-     * @param {Array} src the source to copy.
-     * @param {Number} begin (optional) zero-based index from which to start the copy.
-     * @param {Number} end (optional) zero-based index at which to end the copy.
+     * @param {Array} src - the source to copy.
+     * @param {Number} begin - (optional) zero-based index from which to start the copy.
+     * @param {Number} end - (optional) zero-based index at which to end the copy.
      * @return {Array} a shallow copy of the source.
      * @public
      * @static
@@ -63,7 +63,7 @@
     /**
      * Tests whether the specified argument is a numeric value.
      *
-     * @param {*} value the argument whose type will be tested.
+     * @param {*} value - the argument whose type will be tested.
      * @return {Boolean} true if the argument is a numeric value, otherwise false.
      * @public
      * @static
@@ -75,7 +75,7 @@
     /**
      * Tests whether the specified argument is an integer value.
      *
-     * @param {*} value the argument whose type will be tested.
+     * @param {*} value - the argument whose type will be tested.
      * @return {Boolean} true if the argument is an integer value, otherwise false.
      * @public
      * @static
@@ -96,7 +96,7 @@
     /**
      * Tests whether the specified argument is a plain object.
      *
-     * @param {*} obj the argument whose type will be tested.
+     * @param {*} obj - the argument whose type will be tested.
      * @return {Boolean} true if the argument is a plain object, otherwise false.
      * @public
      * @static
@@ -108,8 +108,8 @@
     /**
      * Merge the contents of two or more objects into the first object.
      *
-     * @param {Boolean} deep (optional) the first boolean argument determines whether the objects should be deep copied.
-     * @param {...Object} target two or more objects that will be merged into the first object.
+     * @param {Boolean} deep - (optional) the first boolean argument determines whether the objects should be deep copied.
+     * @param {...Object} target - two or more objects that will be merged into the first object.
      * @return {Object|null} the resulting object after the merging has taken place, or null on failure.
      * @public
      * @static
@@ -149,7 +149,7 @@
     /**
      * Returns a formatted string according to the given arguments.
      *
-     * @param {String} str the string to format.
+     * @param {String} str - the string to format.
      * @param {...String} a variable number of arguments to use in the format.
      * @return string the formatted string.
      * @throws TypeError if the first argument is not a string.

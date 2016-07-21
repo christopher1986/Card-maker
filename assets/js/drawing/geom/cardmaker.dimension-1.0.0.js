@@ -36,8 +36,8 @@
         /**
          * Initialize the Dimension.
          *
-         * @param {String|Number} width (optional) the width.
-         * @param {String|Number} height (optional) the height.
+         * @param {String|Number} width - (optional) the width.
+         * @param {String|Number} height - (optional) the height.
          * @private
          */
         function init(width, height) {
@@ -50,7 +50,7 @@
     /**
      * Set the width which may be followed by a unit of measurement (e.g. 90mm).
      *
-     * @param {String|Number} width the width.
+     * @param {String|Number} width - the width.
      * @public
      */
     Dimension.prototype.setWidth = function(width) {
@@ -60,7 +60,7 @@
     /**
      * Returns the width in pixels.
      *
-     * @return {Number} the width.
+     * @return {Number} - the width.
      * @public
      */
     Dimension.prototype.getWidth = function() {
@@ -70,7 +70,7 @@
     /**
      * Set the height which may be followed by a unit of measurement (e.g. 130mm).
      *
-     * @param {String|Number} height the height.
+     * @param {String|Number} height - the height.
      * @public
      */
     Dimension.prototype.setHeight = function(height) {
@@ -91,7 +91,7 @@
      * Converts the specified string which represents a size of a particular measurement unit into pixels. 
      * The units millimeters (mm), centimers (cm), pica (pc), point (pt) and inches (in) are supported.
      *
-     * @param {String} size the size followed by a unit of measurement.
+     * @param {String} size - the size followed by a unit of measurement.
      * @return {Number} the size in pixels.
      * @public
      */

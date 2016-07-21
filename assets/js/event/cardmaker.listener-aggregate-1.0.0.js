@@ -29,7 +29,7 @@
         /**
          * Initialize the ListenerAggregate.
          *
-         * @param {cardmaker.Canvas} the canvas associated with this aggregrate.
+         * @param {cardmaker.Canvas} canvas - the canvas associated with this aggregrate.
          * @throws {TypeError} if the specified argument is not a canvas.
          * @private
          */
@@ -46,7 +46,7 @@
     /**
      * Attach listeners contained by this aggregrate to the specified target.
      *
-     * @param {EventTarget} target the target to which the listeners will be attached.
+     * @param {EventTarget} target - the target to which the listeners will be attached.
      * @public
      */
     ListenerAggregate.prototype.attach = function(target) {
@@ -58,7 +58,7 @@
     /**
      * Detach listeners contained by this aggregrate from the specified target.
      *
-     * @param {EventTarget} target the target from which to detach all listeners.
+     * @param {EventTarget} target - the target from which to detach all listeners.
      * @public
      */
     ListenerAggregate.prototype.detach = function(target) {
@@ -70,7 +70,7 @@
     /**
      * Handle the selection of layers using the Ctrl-click command.
      *
-     * @param {KeyboardEvent} event object containing details about this event.
+     * @param {KeyboardEvent} event - an Event object containing details about this event.
      */
     ListenerAggregate.prototype.layerSelect = function(event) {
         var keyName = event.key;

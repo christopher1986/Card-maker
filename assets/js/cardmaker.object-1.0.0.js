@@ -30,7 +30,7 @@
     /**
      * Dispatch event for the specified callee.
      *
-     * @param {Event|string} event an Event object or string containing the event type.
+     * @param {Event|string} event - an Event object or string containing the event type.
      * @param {...*} additional paramaters to pass along to the event handler.
      */
     MVCObject.prototype.dispatch = function(event) {
@@ -43,10 +43,10 @@
     /**
      * Attach an event handler for the specified event.
      *
-     * @param {String} event the event type.
-     * @param {Callback} handler the callback to execute.
-     * @param {Number} priority (optional) the priority associated with the handler.
-     * @param {Boolean} once (optional) only execute the handler once, defaults to false.
+     * @param {String} event - the event type.
+     * @param {Callback} handler - the callback to execute.
+     * @param {Number} priority - (optional) the priority associated with the handler.
+     * @param {Boolean} once - (optional) only execute the handler once, defaults to false.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be attached.
      * @public
      */
@@ -58,9 +58,9 @@
     /**
      * Attach an event handler for the specified event. The handler is executed at most once.
      *
-     * @param {String} event the event type.
-     * @param {Callback} handler the callback to execute.
-     * @param {Number} priority (optional) the priority associated with the handler.
+     * @param {String} event - the event type.
+     * @param {Callback} handler - the callback to execute.
+     * @param {Number} priority - (optional) the priority associated with the handler.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be attached.
      * @public
      */
@@ -72,8 +72,8 @@
     /**
      * Detach an event handler for the specified event or remove all handlers if no handler is specified.
      *
-     * @param {String} event the event type for this to remove one or more handlers.
-     * @param {Callback} (optional) handler a specific callback to remove.
+     * @param {String} event - the event type for this to remove one or more handlers.
+     * @param {Callback} - (optional) handler a specific callback to remove.
      * @return {MVCObject} provides a fluent interface which allows multiple handlers to be detached.
      * @public
      */

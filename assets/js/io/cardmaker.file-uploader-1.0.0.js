@@ -52,10 +52,10 @@
         /**
          * Initialize the ProgressEvent.
          *
-         * @param {String} the event type.
-         * @param {FileReader} the underlying file reader.
-         * @param {Number} loaded the bytes loaded.
-         * @param {Number} total the total bytes to load.
+         * @param {String} type - the event type.
+         * @param {FileReader} target - the underlying file reader.
+         * @param {Number} loaded - the bytes loaded.
+         * @param {Number} total - the total bytes to load.
          * @private
          */
         function init(type, target, loaded, total) {
@@ -110,7 +110,7 @@
     /**
      * Set the validator that determines whether a file should be uploaded.
      *
-     * @param {cardmaker.Validator} validator the file validator.
+     * @param {cardmaker.Validator} validator - the file validator.
      * @public
      */
     FileUploader.prototype.setValidator = function(validator) {
@@ -130,8 +130,8 @@
     /**
      * Upload a collection of files.
      *
-     * @param {FileList} files a collection of {@link File} objects.
-     * @throws {TypeError} if the specified argument is not a {@link FileList} object.
+     * @param {FileList} files - a collection of {@link window.File} objects.
+     * @throws {TypeError} if the specified argument is not a {@link window.FileList} object.
      */
     FileUploader.prototype.upload = function(files) {
         if (!(files instanceof window.FileList)) {
@@ -158,7 +158,7 @@
     /**
      * Dispatch an event when the upload starts.
      *
-     * @param {ProgressEvent} event object containing details about the event.
+     * @param {ProgressEvent} event - an Event object containing details about the event.
      */
     FileUploader.prototype.onStart = function(event) {
         this.dispatch(new ProgressEvent('upload-start', event.target, event.loaded, event.total));
@@ -167,7 +167,7 @@
     /**
      * Dispatch an event when the upload is done.
      *
-     * @param {ProgressEvent} event object containing details about the event.
+     * @param {ProgressEvent} event - an Event object containing details about the event.
      */
     FileUploader.prototype.onFinished = function(event) {
         this.dispatch(new ProgressEvent('upload-finished', event.target, event.loaded, event.total));
@@ -176,7 +176,7 @@
     /**
      * Dispatch an event as the upload progresses.
      *
-     * @param {ProgressEvent} event object containing details about the event.
+     * @param {ProgressEvent} event - an Event object containing details about the event.
      */
     FileUploader.prototype.onProgress = function(event) {
         this.dispatch(new ProgressEvent('upload-progress', event.target, event.loaded, event.total));
@@ -189,7 +189,7 @@
     /**
      * Dispatch an event as the upload is aborted.
      *
-     * @param {ProgressEvent} event object containing details about the event.
+     * @param {ProgressEvent} - an Event object containing details about the event.
      */
     FileUploader.prototype.onAbort = function(event) {
         this.dispatch(new ProgressEvent('upload-abort', event.loaded, event.total));

@@ -28,7 +28,7 @@
         /**
          * Initialize the ChainValidator.
          *
-         * @param {object} validators (optional) the initial validators to add.
+         * @param {object} validators - (optional) the initial validators to add.
          */
         function init(validators) {
             // call parent constructor.
@@ -46,7 +46,7 @@
     /**
      * Tests whether the specified value meets all requirements imposed by this validator.
      *
-     * @param {*} value the value to validate.
+     * @param {*} value - the value to validate.
      * @return {boolean} true if the specified value is valid, otherwise false.
      * @public
      */
@@ -65,8 +65,8 @@
     /**
      * Associate the specified name with the specified validator into this chain of validators.
      *
-     * @param {string} name the name with which the validator will be associated.
-     * @param {cardmaker.Validator} validator the validator to associate with the specified name.
+     * @param {string} name-  the name with which the validator will be associated.
+     * @param {cardmaker.Validator} validator - the validator to associate with the specified name.
      * @return {cardmaker.Validator|null} the validator previously associated with the specified name, or null.
      * @public
      */
@@ -83,7 +83,7 @@
     /**
      * Put a collection of key-value pairs into this chain of validator.
      *
-     * @param {object} validators the collection containing names and validators to add.
+     * @param {object} validators - the collection containing names and validators to add.
      * @return {object} a collection of key-value pairs containing the previous validators, or empty object.
      * @public
      */
@@ -105,7 +105,7 @@
     /**
      * Returns if present the validator associated with the specified name.
      *
-     * @param {string} name the name whose associated validator to return.
+     * @param {string} name - the name whose associated validator to return.
      * @return {cardmaker.Validator|null} the validator found for the specified name, or null on failure.
      * @public
      */
@@ -116,7 +116,7 @@
     /**
      * Removes from this chain of validators the validator associated with the specified name.
      *
-     * @param {string} name the name whose associated validator to remove.
+     * @param {string} name - the name whose associated validator to remove.
      * @return {cardmaker.Validator|null} the validator that was removed, or null if no validator was found.
      * @public
      */
@@ -133,7 +133,7 @@
     /**
      * Tests whether a validator exists for the specified name.
      *
-     * @param {string} name the name whose presence will be tested.
+     * @param {string} name - the name whose presence will be tested.
      * @return {boolean} true if a validator was found for the specified name, otherwise false.
      * @public
      */
@@ -153,7 +153,7 @@
     /**
      * Tests whether the specified argument is a Validator object.
      *
-     * @param {*} validator the argument to test.
+     * @param {*} validator - the argument to test.
      * @return {boolean} true if the specified argument is validator, otherwise false.
      * @public
      */

@@ -28,7 +28,7 @@
         /**
          * Initialize a new Event.
          *
-         * @param {String} type the event type.
+         * @param {String} type - the event type.
          * @private
          */
         function init(type) {
@@ -79,9 +79,9 @@
         /**
          * Initialize a new EventItem.
          *
-         * @param {callback} handler the callback that will be executed for this event.
-         * @param {Number} priority (optional) the priority of this event, defaults to 0.
-         * @param {Boolean} once (optional) only execute the handler once, defaults to false.
+         * @param {callback} handler - the callback that will be executed for this event.
+         * @param {Number} priority - (optional) the priority of this event, defaults to 0.
+         * @param {Boolean} once - (optional) only execute the handler once, defaults to false.
          * @private
          */
         function init(handler, priority, once) {
@@ -125,8 +125,8 @@
     /**
      * Dispatch event for the specified callee.
      *
-     * @param {Object} callee the callee for which the event is dispatched.
-     * @param {Event|string} event an Event object or string containing the event type.
+     * @param {Object} callee - the callee for which the event is dispatched.
+     * @param {Event|string} event - an Event object or string containing the event type.
      * @param {...*} additional paramaters to pass along to the event handler.
      */
     EventDispatcher.prototype.dispatch = function(callee, event) {
@@ -152,10 +152,10 @@
     /**
      * Attach an event handler for the specified event.
      *
-     * @param {String} event the event type.
-     * @param {callback} handler the callback to execute.
-     * @param {Number} priority (optional) the priority associated with the handler.
-     * @param {Boolean} once (optional) only execute the handler once, defaults to false.
+     * @param {String} event - the event type.
+     * @param {callback} handler - the callback to execute.
+     * @param {Number} priority - (optional) the priority associated with the handler.
+     * @param {Boolean} once - (optional) only execute the handler once, defaults to false.
      * @public
      */
     EventDispatcher.prototype.on = function(event, handler, priority, once) {
@@ -180,9 +180,9 @@
     /**
      * Attach an event handler for the specified event. The handler is executed at most once.
      *
-     * @param {String} event the event type.
-     * @param {callback} handler the callback to execute.
-     * @param {Number} priority (optional) the priority associated with the handler.
+     * @param {String} event - the event type.
+     * @param {callback} handler - the callback to execute.
+     * @param {Number} priority - (optional) the priority associated with the handler.
      * @public
      */
     EventDispatcher.prototype.one = function(event, handler, priority) {
@@ -192,8 +192,8 @@
     /**
      * Detach an event handler for the specified event or remove all handlers if no handler is specified.
      *
-     * @param {String} event the event type for this to remove one or more handlers.
-     * @param {callback} (optional) handler a specific callback to remove.
+     * @param {String} event - the event type for this to remove one or more handlers.
+     * @param {callback} (optional) - handler a specific callback to remove.
      * @return {Boolean} true if one or more handlers were removed, otherwise false.
      * @public
      */

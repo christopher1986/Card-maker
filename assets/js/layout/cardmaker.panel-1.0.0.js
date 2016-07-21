@@ -36,7 +36,7 @@
         /**
          * Initialize a new Panel.
          *
-         * @param {HTMLElement} element the HTML element.
+         * @param {HTMLElement} element - the HTML element.
          * @throws {TypeError} if the specified argument is not an HTMLElement.
          * @private
          */
@@ -60,7 +60,7 @@
     /**
      * Set the canvas to which this panel will be attached.
      *
-     * @param {cardmaker.Canvas} canvas the canvas to which this panel will be attached.
+     * @param {cardmaker.Canvas} canvas - the canvas to which this panel will be attached.
      * @throws {TypeError} if the specified argument is not a canvas.
      */
     Panel.prototype.setCanvas = function(canvas) {

@@ -34,7 +34,7 @@
     /**
      * Append the specified child to the end of this container.
      *
-     * @param {cardmaker.Drawable} child the child to add to this container.
+     * @param {cardmaker.Drawable} child - the child to add to this container.
      * @return {Boolean} true if the specified child was added to the container, otherwise false.
      * @public
      */
@@ -53,7 +53,7 @@
     /**
      * Appends a collection of children to the end of this container.
      *
-     * @param {cardmaker.Drawable[]} children the children to add to this container.
+     * @param {cardmaker.Drawable[]} children - the children to add to this container.
      * @return {Boolean} true if one or more children were added to the container, otherwise false.
      * @public
      */
@@ -72,8 +72,8 @@
     /**
      * Insert a child at the specified position within this container.
      *
-     * @param {Number} index the position at which to insert the child.
-     * @param {cardmaker.Drawable} child the child to insert.
+     * @param {Number} index - the position at which to insert the child.
+     * @param {cardmaker.Drawable} child - the child to insert.
      * @return {Boolean} true if the specified child was inserted into the container, otherwise false.
      * @public
      */
@@ -92,7 +92,7 @@
     /**
      * Returns the child at the specified position in this container.
      *
-     * @paran {Number} index the position of the child to return.
+     * @param {Number} index - the position of the child to return.
      * @return {cardmaker.Drawable|null} the child at the specified position, or null on failure.
      * @public
      */
@@ -113,7 +113,7 @@
     /**
      * Tests whether the specified child exists within this container.
      *
-     * @param {cardmaker.Drawable} child the child whose presence will be tested.
+     * @param {cardmaker.Drawable} child - the child whose presence will be tested.
      * @return {Boolean} true if the specified child exists within this container, otherwise false.
      * @public
      */
@@ -124,7 +124,7 @@
     /**
      * Returns the index of the first occurrence of the specified child in this container.
      *
-     * @param {cardmaker.Drawable} child the child to search for.
+     * @param {cardmaker.Drawable} child - the child to search for.
      * @return {Number} the index associated with the child, or -1 on failure.
      * @public
      */
@@ -142,7 +142,7 @@
     /**
      * Returns the index of the last occurrence of the specified child in this container.
      *
-     * @param {cardmaker.Drawable} child the child to search for.
+     * @param {cardmaker.Drawable} child - the child to search for.
      * @return {Number} the index associated with the child, or -1 on failure.
      * @public
      */
@@ -160,7 +160,7 @@
     /**
      * Removes if present the specified child from this container.
      *
-     * @param {cardmaker.Drawable} child the child to remove from this container.
+     * @param {cardmaker.Drawable} child - the child to remove from this container.
      * @return {Boolean} true if the child exists within this container and was removed, otherwise false.
      * @public
      */
@@ -182,7 +182,7 @@
     /**
      * Removes the child at the specified position in this container.
      *
-     * @param {Number} index the position of the child to remove.
+     * @param {Number} index - the position of the child to remove.
      * @return {cardmaker.Drawable|null} the child that was removed from this container, or null on failure.
      * @public
      */
@@ -242,7 +242,7 @@
     /**
      * Tests whether the specified child is a {@link cardmaker.Drawable} object.
      *
-     * @param {*} child the child whose type to test.
+     * @param {*} child - the child whose type to test.
      * @return {Boolean} true if the specified argument is drawable object, otherwise false.
      */
     Drawable.prototype.isAllowed = function(child) {

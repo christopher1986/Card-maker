@@ -28,7 +28,7 @@
         /**
          * Initialize the MimeValidator.
          *
-         * @param {string[]} types (optional) the MIME types.
+         * @param {string[]} types - (optional) the MIME types.
          */
         function init(types) {
             // call parent constructor.
@@ -46,7 +46,7 @@
     /**
      * Tests whether the specified file is of a specific MIME type.
      *
-     * @param {File} file the file to validate.
+     * @param {File} file - the file to validate.
      * @return {boolean} true if the specified file is valid, otherwise false.
      * @public
      */

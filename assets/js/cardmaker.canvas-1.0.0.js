@@ -68,7 +68,7 @@
         /**
          * Initialize a new Canvas.
          *
-         * @param {HTMLCanvasElement} canvas the canvas element.
+         * @param {HTMLCanvasElement} canvas - the canvas element.
          * @throws {TypeError} if the specified argument is not an HTMLCanvasElement.
          * @private
          */
@@ -97,7 +97,7 @@
     /**
      * Add the specified panel to this canvas.
      *
-     * @param {cardmaker.Panel} panel the panel to add.
+     * @param {cardmaker.Panel} panel - the panel to add.
      * @returns {Boolean} true if the panel was added, otherwise false.
      * @throws {TypeError} if the specified argument is not a panel.
      */
@@ -119,7 +119,7 @@
     /**
      * Removes the first occurrence of the specified panel from this canvas.
      *
-     * @param {cardmaker.Panel} panel the panel to remove.
+     * @param {cardmaker.Panel} panel - the panel to remove.
      * @returns {Boolean} true if the panel was removed, otherwise false.
      * @throws {TypeError} if the specified argument is not a panel.
      */
@@ -143,7 +143,7 @@
     /**
      * Add the specified drawable to this canvas.
      *
-     * @param {cardmaker.Drawable} drawable the drawable object to add.
+     * @param {cardmaker.Drawable} drawable - the drawable object to add.
      * @returns {Boolean} true if the drawable object was added, otherwise false.
      * @throws {TypeError} if the specified argument is not a drawable object.
      */
@@ -169,7 +169,7 @@
     /**
      * Removes the first occurrence of the specified drawable from this canvas.
      *
-     * @param {cardmaker.Drawable} drawable the drawable object to remove.
+     * @param {cardmaker.Drawable} drawable - the drawable object to remove.
      * @returns {Boolean} true if the drawable object was removed, otherwise false.
      * @throws {TypeError} if the specified argument is not a drawable object.
      */
@@ -193,7 +193,7 @@
     /**
      * Add the specified {@link HTMLElement} as a file handler.
      *
-     * @param {HTMLElement} element the element to use as file hander.
+     * @param {HTMLElement} element - the element to use as file hander.
      * @returns {Boolean} true if the element was added as file handler, otherwise false.
      * @see {@link cardmaker.FileManager#addFileManager}
      * @public
@@ -205,7 +205,7 @@
     /**
      * Remove the specified {@link HTMLElement} as a file handler.
      *
-     * @param {EventTarget} the element to remove as file handler.
+     * @param {EventTarget} element - the element to remove as file handler.
      * @see {@link cardmaker.FileManager#removeFileManager}
      * @public
      */
@@ -216,7 +216,7 @@
     /**
      * Remove the specified {@link HTMLElement} as a file handler.
      *
-     * @param {EventTarget} the element to remove as file handler.
+     * @param {EventTarget} element - the element to remove as file handler.
      * @see {@link cardmaker.FileManager#removeFileManager}
      * @public
      */
@@ -227,7 +227,7 @@
     /**
      * Add the uploaded image as a drawable object to the canvas.
      *
-     * @param {ProgressEvent} event object containing details about this event.
+     * @param {ProgressEvent} event - an Event object containing details about this event.
      * @public
      */
     Canvas.prototype.onUploadFinished = function(event) {

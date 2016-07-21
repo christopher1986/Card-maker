@@ -14,7 +14,7 @@
      * Tests whether the specified value meets all requirements imposed by this validator.
      * This method should be overridden by concrete validators.
      *
-     * @param {*} value the value to validate.
+     * @param {*} value - the value to validate.
      * @return {boolean} true if the specified value is valid, otherwise false.
      * @abstract
      * @public

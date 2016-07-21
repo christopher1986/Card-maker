@@ -2,7 +2,7 @@
     "use strict";
 
     /**
-     * A Bounds class defines the dimension and location of an object in a two-dimensional space.
+     * The Bounds class defines the dimension and location of an object in a two-dimensional space.
      *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
@@ -52,10 +52,10 @@
         /**
          * Initialize the Bounds.
          *
-         * @param {Number} x (optional) the X coordinate.
-         * @param {Number} y (optional) the Y coordinate.
-         * @param {Number} width (optional) the width in pixels.
-         * @param {Number} height (optional) the height in pixels.
+         * @param {Number} x - (optional) the X coordinate.
+         * @param {Number} y - (optional) the Y coordinate.
+         * @param {Number} width - (optional) the width in pixels.
+         * @param {Number} height - (optional) the height in pixels.
          */
         function init(x, y, width, height) {
             self.setMinX(x);
@@ -69,11 +69,11 @@
     /**
      * Set the X coordinate for the upper-left corner of this Bounds.
      *
-     * @param {Number} x the X coordinate.
+     * @param {Number} x - the X coordinate.
      * @public
      */
     Bounds.prototype.setMinX = function(x) {
-        this.x = (cardmaker.NumberUtil.isNumeric(x)) ? Math.floor(x) : 0;
+        this.x = (cardmaker.NumberUtil.isNumeric(x)) ? x : 0;
     }
 
     /**
@@ -83,7 +83,7 @@
      * @public
      */
     Bounds.prototype.getMinX = function() {
-        return this.x;
+        return Math.round(this.x);
     }
     
     /**
@@ -96,17 +96,17 @@
      * @public
      */
     Bounds.prototype.getMaxX = function() {
-        return this.x + this.width;
+        return Math.round(this.x + this.width);
     }
     
     /**
      * Set the Y coordinate for the upper-left corner of this Bounds.
      *
-     * @param {Number} x the X coordinate.
+     * @param {Number} x - the X coordinate.
      * @public
      */
     Bounds.prototype.setMinY = function(y) {
-        this.y = (cardmaker.NumberUtil.isNumeric(y)) ? Math.floor(y) : 0;
+        this.y = (cardmaker.NumberUtil.isNumeric(y)) ? y : 0;
     }
     
     /**
@@ -116,7 +116,7 @@
      * @public
      */
     Bounds.prototype.getMinY = function() {
-        return this.y;
+        return Math.round(this.y);
     }
     
     /**
@@ -129,17 +129,17 @@
      * @public
      */
     Bounds.prototype.getMaxY = function() {
-        return this.y + this.height;
+        return Math.round(this.y + this.height);
     }
     
     /**
      * Set the width of this Bounds in pixels.
      *
-     * @param {Number} width the width in pixels.
+     * @param {Number} width - the width in pixels.
      * @public
      */
     Bounds.prototype.setWidth = function(width) {
-        this.width = (cardmaker.NumberUtil.isNumeric(width) && width > 0) ? Math.floor(width) : 0;
+        this.width = (cardmaker.NumberUtil.isNumeric(width) && width > 0) ? width : 0;
     }
     
     /**
@@ -149,17 +149,17 @@
      * @public
      */
     Bounds.prototype.getWidth = function() {
-        return Math.max(this.width, 0);
+        return Math.max(Math.round(this.width), 0);
     }
     
     /**
      * Set the height of this Bounds in pixels.
      *
-     * @param {Number} height the height in pixels.
+     * @param {Number} height - the height in pixels.
      * @public
      */
     Bounds.prototype.setHeight = function(height) {
-        this.height = (cardmaker.NumberUtil.isNumeric(height) && height > 0) ? Math.floor(height) : 0; 
+        this.height = (cardmaker.NumberUtil.isNumeric(height) && height > 0) ? height : 0; 
     }
     
     /**
@@ -169,13 +169,13 @@
      * @public
      */
     Bounds.prototype.getHeight = function() {
-        return Math.max(this.height, 0);
+        return Math.max(Math.round(this.height), 0);
     }
     
     /**
      * Tests if the boundary of the specified bounds is entirely contained within the boundary of this bounds.
      *
-     * @param {cardmaker.Bounds} bounds the bounds whose boundary to test.
+     * @param {cardmaker.Bounds} bounds - the bounds whose boundary to test.
      * @return {Boolean} true if the specified bounds is contained within this bounds, otherwise false.
      * @public
      */
@@ -183,7 +183,7 @@
         var contains = false;
         if (bounds instanceof cardmaker.Bounds) {
             contains = (this.contains(bounds.getMinX(), bounds.getMinY()) && 
-                        this.contains(bounds.getMaxX(), bounds.getMaxY());
+                        this.contains(bounds.getMaxX(), bounds.getMaxY()));
         }
         
         return contains;
@@ -192,7 +192,7 @@
     /**
      * Tests if the specified point is inside the boundary of this bounds.
      *
-     * @param {cardmaker.Point} point the point to test.
+     * @param {cardmaker.Point} point - the point to test.
      * @return {Boolean} true if the specified point is inside the boundary of this bounds.
      * @see {@link cardmaker.Bounds#contains(x, y)}
      * @public
@@ -209,8 +209,8 @@
     /**
      * Tests if the specified (x, y) coordinates are inside the boundary of this bounds.
      *
-     * @param {Number} x the X coordinate to test.
-     * @param {Number} y the Y coordinate to test.
+     * @param {Number} x - the X coordinate to test.
+     * @param {Number} y - the Y coordinate to test.
      * @return {Boolean} true if the specified coordinates are inside the boundary of this bounds, otherwise false.
      * @public
      */
@@ -235,7 +235,7 @@
      * If the two bounds don't intersect the width and height of the resulting Bounds
      * object will be zero and is therefore considered to be empty.
      *
-     * @param {cardmaker.Bounds} a bounds object containing the intersection.
+     * @param {cardmaker.Bounds} bounds - a Bounds object containing the intersection.
      * @throws {TypeError} if the specified argument is not a {@link cardmaker.Bounds} object.
      * @public
      */

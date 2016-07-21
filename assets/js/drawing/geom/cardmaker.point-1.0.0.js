@@ -36,8 +36,8 @@
         /**
          * Initialize the Point.
          *
-         * @param {String|Number} x (optional) the x-coordinate of this point.
-         * @param {String|Number} y (optional) the y-coordinate of this point.
+         * @param {String|Number} x - (optional) the x-coordinate of this point.
+         * @param {String|Number} y - (optional) the y-coordinate of this point.
          * @private
          */
         function init(x, y) {
@@ -50,7 +50,7 @@
     /**
      * Set the x-coordinate of this point.
      *
-     * @param {Number} x the x-coordinate.
+     * @param {Number} x - the x-coordinate.
      * @public
      */
     Point.prototype.setX = function(x) {
@@ -70,7 +70,7 @@
     /**
      * Set the y-coordinate of this point.
      *
-     * @param {Number} y the y-coordinate.
+     * @param {Number} y - the y-coordinate.
      * @public
      */
     Point.prototype.setY = function(y) {
@@ -90,8 +90,8 @@
     /**
      * Set the location (x,y) of this point to the specified x and y coordinates.
      *
-     * @param {Number} x the x-coordinate.
-     * @param {Number} y the y-coordinate.
+     * @param {Number} x - the x-coordinate.
+     * @param {Number} y - the y-coordinate.
      * @public
      */
     Point.prototype.move = function(x, y) {
@@ -103,8 +103,8 @@
      * Translate the location (x,y) of this point into the direction designated by the tx and ty coordinates,
      * such that it now represents the following location (x+tx, y+ty).
      *
-     * @param {Number} tx the distance to move the point along the x-coordinate space.
-     * @param {Number} ty the distance to move the point along the y-coordinate space.
+     * @param {Number} tx - the distance to move the point along the x-coordinate space.
+     * @param {Number} ty - the distance to move the point along the y-coordinate space.
      * @public
      */
     Point.prototype.translate = function(tx, ty) {
@@ -122,8 +122,8 @@
     /**
      * Returns a point object with the specified coordinates added to the coordinates of this point.
      *
-     * @param {Number} x the x-coordinate to add.
-     * @param {Number} y the y-coordinate to add.
+     * @param {Number} x - the x-coordinate to add.
+     * @param {Number} y - the y-coordinate to add.
      * @retunr {cardmaker.Point} a point object with the added coordinates.
      */
     Point.prototype.add = function(x, y) {
@@ -136,8 +136,8 @@
     /**
      * Returns a point object with the specified coordinates subtracted from the coordinates of this point.
      *
-     * @param {Number} x the x-coordinate to subtract.
-     * @param {Number} y the y-coordinate to subtract.
+     * @param {Number} x - the x-coordinate to subtract.
+     * @param {Number} y - the y-coordinate to subtract.
      * @retunr {cardmaker.Point} a point object with the subtracted coordinates.
      */
     Point.prototype.subtract = function(x, y) {
@@ -150,7 +150,7 @@
     /**
      * Creates a new point from the specified {@link cardmaker.Bounds} object.
      *
-     * @param {cardmaker.Bounds} bounds the bounds from which to create a new point.
+     * @param {cardmaker.Bounds} bounds - the bounds from which to create a new Point object.
      * @return {cardmaker.Point} a point object.
      * @public
      * @static
