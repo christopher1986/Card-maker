@@ -113,9 +113,9 @@
             if (this.children.length > this.options.maxChildren && this.depth < this.options.maxDepth) {
                 this.subdivide();
                 
-                var childIndex;
+                var childIndex, nodeIndex;
                 for (childIndex = this.children.length; childIndex > 0; childIndex--) {
-                    var nodeIndex = this.getIndex(this.children[childIndex]);
+                    nodeIndex = this.getIndex(this.children[childIndex]);
                     if (nodeIndex !== -1 && this.quadrants[nodeIndex].insert(element)) {
                         this.children.splice(childIndex, 1);
                     }
@@ -133,21 +133,24 @@
      * method should be a {@link cardmaker.Bounds} object.
      * 
      * @param {*} element - the element for which to retrieve elements with which it can collide.
-     * @return {Array} a collection of elements with which the specified element can collide.
+     * @param {Array} collidables - (optional) a collection of elements with which the element can collide.
+     * @return {Array} a collection of elements with which the element can collide.
      */
-    Node.prototype.retrieve = function(element) {
-        var elements = [];
+    Node.prototype.retrieve = function(element, collidables) {
+        collidables = (cardmaker.ArrayUtil.isArray(collidables)) ? collidables : [];
         if (this.isAllowed(element)) {
-            elements = this.children;
             if (this.hasQuadrants()) {
                 var index = this.getIndex(element);
                 if (index !== 0) {
-                    elements = this.quadrants[index].retrieve(element);
+                    this.quadrants[index].retrieve(element, collidables);
                 }
             }
+            
+            // append elements to array.
+            collidables.concat(this.children);
         }
         
-        return elements;
+        return collidables;
     }
     
     /**
@@ -157,12 +160,9 @@
      */
     Node.prototype.clear = function() {
         cardmaker.ArrayUtil.clear(this.children);
-        var quadrant;
+
         while (this.quadrants.length) {
-            quadrant = this.quadrants.pop();
-            if (quadrant) {
-                quadrant.clear();
-            }
+            this.quadrants.pop().clear();
         }
     }
     
