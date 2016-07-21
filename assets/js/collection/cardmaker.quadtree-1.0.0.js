@@ -102,6 +102,9 @@
                 if (index !== -1) {
                     return this.quadrants[index].insert(element);
                 }
+                
+                // element doesn't fit into a quadrant.
+                return this.children.push(element);
             }
             
             // insert into this node.
