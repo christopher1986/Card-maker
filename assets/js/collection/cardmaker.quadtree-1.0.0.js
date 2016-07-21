@@ -303,8 +303,8 @@
          * @private
          */
         function init(bounds, args) {
-            if (!(bounds instanceof cardmaker.Stage)) {
-                throw new TypeError('QuadTree expects a cardmaker.Stage object.');
+            if (!(bounds instanceof cardmaker.Bounds)) {
+                throw new TypeError('QuadTree expects a cardmaker.Bounds object.');
             }
 
             self.root = new Node(bounds, 0, args);
