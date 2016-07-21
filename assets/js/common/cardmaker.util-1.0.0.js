@@ -52,6 +52,20 @@
     }
     
     /**
+     * Remove all elements from the specified arary. The array will be empty after this call returns.
+     *
+     * @public
+     * @static
+     */
+    ArrayUtil.clear = function(src) {
+        if (ArrayUtil.isArray(src)) {
+            while (src.length) {
+                src.pop();
+            }
+        }
+    }
+    
+    /**
      * The NumberUtil class provides static methods for numeric values and Number objects.
      *
      * @author Chris Harris <c.harris@hotmail.com>
