@@ -94,6 +94,14 @@
         self.lock = new cardmaker.Lock();
         
         /**
+         * A flag that determines whether this drawable should be redrawn.
+         *
+         * @type {Boolean}
+         * @private
+         */
+        self.valid = false;
+        
+        /**
          * Initialize the Drawable.
          *
          * @private
@@ -128,6 +136,8 @@
             this.onDraw(canvas);
             this.lock.unlock();
         }
+        
+        this.valid = true;
     }
     
     /**
@@ -151,7 +161,17 @@
      * @public
      */
     Drawable.prototype.invalidate = function() {
+        this.valid = false;
         this.dispatch('invalidate', new InvalidateEvent('invalidate', this));
+    }
+    
+    /**
+     * Determines whether this drawable needs to be redrawn.
+     *
+     * @return {Boolean} true if the drawable is valid and does not need to be redraw, otherwise false.
+     */
+    Drawable.prototype.isValid = function() {
+        return this.valid;
     }
     
     /**

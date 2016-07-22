@@ -50,14 +50,6 @@
         self.drawables = [];
         
         /**
-         * The currently selected drawable.
-         *
-         * @typedef {cardmaker.Drawable}
-         * @public
-         */
-        self.selected = null;
-        
-        /**
          * A collection of panels attached to this canvas.
          *
          * @typedef {cardmaker.Panel[]}
