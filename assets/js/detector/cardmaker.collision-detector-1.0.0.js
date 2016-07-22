@@ -9,7 +9,7 @@
      * @version 1.0.0
      * @since 1.0.0
      */
-    function CollisionDetector(bounds, args) {
+    function LayoutRenderer(bounds, args) {
         /**
          * A reference to this object.
          *
@@ -27,14 +27,28 @@
         self.tree = null;
         
         /**
+         * The canvas containing the drawables to render.
+         *
+         * @typedef {cardmaker.Canvas}
+         * @public
+         */
+        self.canvas = null;
+        
+        /**
          * Initialize the CollisionDetector.
          *
-         * @param {cardmaker.Bounds} bounds - the boundaries of the canvas.
+         * @param {cardmaker.Canvas} canvas - the canvas containing the drawables to render.
          * @param {Object} args - (optional) the options to use by the underlying quadtree.
+         * @throws {TypeError} if the first argument is not {@link cardmaker.Canvas} object.
          */
-        function init(bounds, args) {
+        function init(canvas, args) {
+            if (!(canvas instanceof cardmaker.Canvas)) {
+                throw new TypeError('LayoutRenderer expects a cardmaker.Canvas object.');
+            }
+        
             var options = cardmaker.ObjectUtil.merge(args, { 'maxChildren': 4, 'maxDepth': 4 });
-            self.tree = new cardmaker.QuadTree(bounds, options);
+            self.canvas = canvas;
+            self.tree   = new cardmaker.QuadTree(canvas.getBounds(), options);
         }
         init(bounds, args);
     }
@@ -42,20 +56,41 @@
     /**
      * Returns a collection of elements that can collide with the specified element.
      *
-     * @param {*} element - the element whose collision to test.
-     * @param {Array} elements - the elements to check against.
-     * @return {Array} a collection of elements with which the element can collide.
+     * @publix
      */
-    CollisionDetector.prototype.collidesWith = function(element, elements) {
-        this.tree.clear();
-        if (cardmaker.Array.isArray(elements)) {
-            var index, size;
-            for (index = 0, size = elements.length; index < size; index++) {
-                this.tree.insert(elements[index]);   
+    LayoutRenderer.prototype.layout = function() {
+        var index, size, drawable;
+        for (index = 0, size = this.drawables.length; index < size; index++) {
+            drawable = this.drawables[index];
+            if (!drawable.isValid()) {
+                drawable.draw()
             }
         }
+    }
+    
+    /**
+     * Returns a collection of elements that can collide with the specified element.
+     *
+     * @publix
+     */
+    LayoutRenderer.prototype.relayout = function() {
+        this.tree.clear();
+        this.tree.insertAll(this.canvas.drawables);
         
-        return this.tree.retrieve(element);
+        var collidables, collidable, collidableSize, drawable, drawableSize, i, j;
+        for (i = 0, drawableSize = this.canvas.drawables.length; i < drawableSize; i++) {
+            drawable = this.canvas.drawables[i];
+            // retrieve drawables that can collide.
+            collidables = this.tree.retrieve(drawable);
+            for (j = 0, collidableSize = collidables.length; j < collidableSize; j++) {
+                collidable = collidables[j];
+                // compute if the drawables do collide.
+                if (drawable !== collidable && drawable.getBounds().intersects(collidable.getBounds())) {
+                    
+                }
+            }
+        }
+
     }
 
 })(this, this.document, this.cardmaker = this.cardmaker || {});
