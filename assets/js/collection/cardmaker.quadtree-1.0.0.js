@@ -200,7 +200,7 @@
             var index, size, quadrant;
             for (index = 0, size = this.quadrants.length; index < size; index++) {
                 quadrant = this.quadrants[index];
-                if (quadrant.bounds.contains(bounds)) {
+                if (quadrant.bounds.containsBounds(bounds)) {
                     return index;
                 }
             }
