@@ -325,7 +325,7 @@
     }
     
     /**
-     * Invalidate the drawable when it's properties have changed.
+     * Invalidate the drawable when it's properties change.
      *
      * @param {cardmaker.Event} event - an Event object containing details about this event.
      * @see {@link cardmaker.Drawable#invalidate()}

@@ -28,7 +28,7 @@
         /**
          * Initialize the Lock.
          *
-         * @param {Boolean} locked the initial lock state.
+         * @param {Boolean} locked - the initial lock state.
          * @private
          */
         function init(locked) {
