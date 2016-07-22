@@ -323,6 +323,29 @@
     }
     
     /**
+     * Insert a collection of elements into this node.
+     *
+     * The elements to insert must have a {@link #getBounds()} method and the return type of this
+     * method should be a {@link cardmaker.Bounds} object. 
+     *
+     * @param {Array} elements - the elements to insert into this node.
+     * @return {Boolean} true if at least one element was inserted, otherwise false.
+     * @see {@link Node.isAllowed(element)}
+     * @public
+     */
+    QuadTree.prototype.insertAll = function(elements) {
+        elements = (cardmaker.ArrayUtil.isArray(elements)) ? elements : arguments;
+        
+        var inserted = false;
+        var index, size;
+        for (index = 0, size = elements.length; index < size; size++) {
+            inserted = (altered && this.root.insert(elements[index]));
+        }
+        
+        return inserted;
+    }
+    
+    /**
      * Returns a collection of elements that can collide with the specified element.
      *
      * The specified element must have a {@link #getBounds()} method and the return type of this
