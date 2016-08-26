@@ -76,7 +76,7 @@
             }
         
             self.bounds  = bounds;
-            self.depth   = (Cardmaker.NumberUtil.isInt(depth)) ? depth : 0;
+            self.depth   = (cardmaker.NumberUtil.isInt(depth)) ? depth : 0;
             self.options = (cardmaker.ObjectUtil.isPlainObject(args)) ? cardmaker.ObjectUtil.merge(self.options, args) : self.options;
         }
         init(bounds, depth, options);
@@ -114,7 +114,7 @@
                 this.subdivide();
                 
                 var childIndex, nodeIndex;
-                for (childIndex = this.children.length; childIndex > 0; childIndex--) {
+                for (childIndex = (this.children.length - 1); childIndex > 0; childIndex--) {
                     nodeIndex = this.getIndex(this.children[childIndex]);
                     if (nodeIndex !== -1 && this.quadrants[nodeIndex].insert(element)) {
                         this.children.splice(childIndex, 1);
@@ -122,7 +122,7 @@
                 }
             }
         }
-        
+
         return inserted;
     }
     
@@ -142,12 +142,12 @@
             if (this.hasQuadrants()) {
                 var index = this.getIndex(element);
                 if (index !== 0) {
-                    this.quadrants[index].retrieve(element, collidables);
+                    return this.quadrants[index].retrieve(element, collidables);
                 }
             }
-            
+
             // append elements to array.
-            collidables.concat(this.children);
+            collidables = collidables.concat(this.children);
         }
         
         return collidables;
@@ -338,8 +338,8 @@
         
         var inserted = false;
         var index, size;
-        for (index = 0, size = elements.length; index < size; size++) {
-            inserted = (altered && this.root.insert(elements[index]));
+        for (index = 0, size = elements.length; index < size; index++) {
+            inserted = (this.root.insert(elements[index]) || inserted);
         }
         
         return inserted;
@@ -355,7 +355,7 @@
      * @return {Array} a collection of elements with which the specified element can collide.
      */
     QuadTree.prototype.retrieve = function(element) {
-        return ArrayUtil.copy(this.root.retrieve(element));
+        return cardmaker.ArrayUtil.copy(this.root.retrieve(element));
     }
     
     /**

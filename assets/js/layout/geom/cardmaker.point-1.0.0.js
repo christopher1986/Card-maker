@@ -74,7 +74,7 @@
      * @public
      */
     Point.prototype.setY = function(y) {
-        this.y = (cardmaker.NumberUtil.isInt(y)) ? x : 0;
+        this.y = (cardmaker.NumberUtil.isInt(y)) ? y : 0;
     }
     
     /**

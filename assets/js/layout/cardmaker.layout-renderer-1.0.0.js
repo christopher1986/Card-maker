@@ -71,9 +71,9 @@
     /**
      * Returns a collection of elements that can collide with the specified element.
      *
-     * @publix
+     * @public
      */
-    LayoutRenderer.prototype.relayout = function() {
+    LayoutRenderer.prototype.relayout = function() {    
         this.tree.clear();
         this.tree.insertAll(this.canvas.drawables);
         
@@ -86,11 +86,13 @@
                 collidable = collidables[j];
                 // compute if the drawables do collide.
                 if (drawable !== collidable && drawable.getBounds().intersects(collidable.getBounds())) {
-                    
+                    console.log('collide');
                 }
             }
         }
-
     }
+    
+    // add LayoutRenderer to namespace.
+    cardmaker.LayoutRenderer = LayoutRenderer;
 
 })(this, this.document, this.cardmaker = this.cardmaker || {});

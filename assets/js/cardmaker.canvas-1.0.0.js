@@ -42,6 +42,14 @@
         self.fileManager = null;
         
         /**
+         * The layout renderer draws objects onto the canvas.
+         *
+         * @typedef {cardmaker.LayoutRenderer}
+         * @public
+         */
+        self.layoutRenderer = null;
+        
+        /**
          * A collection of drawable objects for this canvas.
          *
          * @typedef {cardmaker.Drawable[]}
@@ -75,6 +83,7 @@
             self.canvas = canvas;
             self.fileManager = new cardmaker.FileManager();
             self.fileManager.on('upload-finished', self.onUploadFinished.bind(self));
+            self.layoutRenderer = new cardmaker.LayoutRenderer(self);
 
             listeners = new cardmaker.ListenerAggregate(self);
             listeners.attach(document);
@@ -150,6 +159,7 @@
         if (newSize > oldSize) {
             var self = this;
             drawable.on('invalidate', function(event) {
+                self.layoutRenderer.relayout();
                 this.draw(self.canvas);
             });
             drawable.draw(this.canvas);
@@ -227,8 +237,13 @@
         this.addDrawable(drawable);
     }
     
-    Canvas.prototype.onDrawableInvalid = function(event) {
-        
+    /**
+     * Returns a {@link cardmaker.Bounds} object containing the canvas boundaries.
+     *
+     * @return {@cardmaker.Bounds} the canvas boundaries.
+     */
+    Canvas.prototype.getBounds = function() {
+        return new cardmaker.Bounds(0, 0, this.canvas.width, this.canvas.height);
     }
     
     // add Canvas to namespace.

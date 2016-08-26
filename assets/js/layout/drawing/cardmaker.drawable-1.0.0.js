@@ -208,8 +208,8 @@
         var bounds = this.getLocalBounds();
         var point  = this.localToGlobal(cardmaker.Point.createFromBounds(bounds));
             
-        bounds.setX(point.getX());
-        bounds.setY(point.getY());
+        bounds.setMinX(point.getX());
+        bounds.setMinY(point.getY());
         
         return bounds;
     }
@@ -225,8 +225,8 @@
     Drawable.prototype.getLocalBounds = function() {
         var bounds = new cardmaker.Bounds();
         if (this.bounds instanceof cardmaker.Bounds) {
-            bounds.setX(this.getX());
-            bounds.setY(this.getY());
+            bounds.setMinX(this.getX());
+            bounds.setMinY(this.getY());
             bounds.setWidth(this.getWidth());
             bounds.setHeight(this.getHeight());
         }
