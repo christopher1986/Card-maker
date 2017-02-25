@@ -1,6 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
+
     /**
      * The ArrayUtil class provides static methods for collection types such as arrays.
      *
@@ -9,7 +9,7 @@
      * @since 1.0.0
      */
     function ArrayUtil() {}
-    
+
     /**
      * Swap the elements at the specified positions in the specified array.
      *
@@ -24,7 +24,7 @@
         src[i] = src[j];
         src[j] = tmp;
     }
-    
+
     /**
      * Tests whether the specified argument is an array.
      *
@@ -36,7 +36,7 @@
     ArrayUtil.isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
-    
+
     /**
      * Returns a shallow copy of the specified array.
      *
@@ -50,7 +50,7 @@
     ArrayUtil.copy = function(src, begin, end) {
         return Array.prototype.slice.call(src, begin, end);
     }
-    
+
     /**
      * Remove all elements from the specified arary. The array will be empty after this call returns.
      *
@@ -64,7 +64,25 @@
             }
         }
     }
-    
+
+    /**
+     * Removes if present from the specified array the first occurrence of the given element.
+     *
+     * @param {Array} elements The array from which to remove the given element.
+     * @param {*} element The element to remove.
+     * @return {Array} The specified array from which the given element has been removed.
+     */
+    ArrayUtil.remove = function(elements, element) {
+        if (ArrayUtil.isArray(elements)) {
+            var index = elements.indexOf(element);
+            if (index !== -1) {
+                elements.splice(index, 1);
+            }
+        }
+
+        return elements;
+    }
+
     /**
      * The NumberUtil class provides static methods for numeric values and Number objects.
      *
@@ -73,7 +91,7 @@
      * @since 1.0.0
      */
     function NumberUtil() {}
-    
+
     /**
      * Tests whether the specified argument is a numeric value.
      *
@@ -85,7 +103,7 @@
     NumberUtil.isNumeric = function(value) {
         return (!isNaN(parseFloat(value)) && isFinite(value));
     }
-    
+
     /**
      * Tests whether the specified argument is an integer value.
      *
@@ -106,7 +124,7 @@
      * @since 1.0.0
      */
     function ObjectUtil() {}
-    
+
     /**
      * Tests whether the specified argument is a plain object.
      *
@@ -118,7 +136,7 @@
     ObjectUtil.isPlainObject = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Object]';
     }
-    
+
     /**
      * Merge the contents of two or more objects into the first object.
      *
@@ -131,10 +149,10 @@
     ObjectUtil.merge = function(target) {
         var args = ArrayUtil.copy(arguments);
         var deep = (args.length && typeof args[0] === 'boolean') ? args.shift() : false;
-        
+
         var objects = args.filter(ObjectUtil.isPlainObject);
         var merger  = {};
-        
+
         var obj, prop, index, size;
         for (index = 0, size = objects.length; index < size; index++) {
             obj = objects[index];
@@ -147,10 +165,10 @@
                 }
             }
         }
-        
-        return merger; 
+
+        return merger;
     }
-    
+
     /**
      * The StringUtil class provides static methods for String objects.
      *
@@ -159,7 +177,7 @@
      * @since 1.0.0
      */
     function StringUtil() {}
-    
+
     /**
      * Returns a formatted string according to the given arguments.
      *
@@ -180,14 +198,14 @@
             return (typeof args[number] !== 'undefined') ? args[number] : match;
         });
     }
-    
+
     // add ArrayUtil to namespace.
     cardmaker.ArrayUtil = ArrayUtil;
     // add NumberUtil to namespace.
-    cardmaker.NumberUtil = NumberUtil;    
+    cardmaker.NumberUtil = NumberUtil;
     // add ObjectUtil to namespace.
     cardmaker.ObjectUtil = ObjectUtil;
     // add StringUtil to namespace.
     cardmaker.StringUtil = StringUtil;
-    
+
 })(this, this.document, this.cardmaker = this.cardmaker || {});

@@ -4,7 +4,7 @@
     /**
      * The CollisionDetector uses a 2D collision detection algorithm. The time required to detect all possible collisions
      * is minimized by using a quadtree which reduces the number of collision checks this detector must perform.
-     * 
+     *
      * @author Chris Harris <c.harris@hotmail.com>
      * @version 1.0.0
      * @since 1.0.0
@@ -17,7 +17,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The quadtree to minimize the number of collision checks.
          *
@@ -25,7 +25,7 @@
          * @private
          */
         self.tree = null;
-        
+
         /**
          * The canvas containing the drawables to render.
          *
@@ -33,7 +33,7 @@
          * @public
          */
         self.canvas = null;
-        
+
         /**
          * Initialize the CollisionDetector.
          *
@@ -45,14 +45,14 @@
             if (!(canvas instanceof cardmaker.Canvas)) {
                 throw new TypeError('LayoutRenderer expects a cardmaker.Canvas object.');
             }
-        
+
             var options = cardmaker.ObjectUtil.merge(args, { 'maxChildren': 4, 'maxDepth': 4 });
             self.canvas = canvas;
             self.tree   = new cardmaker.QuadTree(canvas.getBounds(), options);
         }
         init(bounds, args);
     }
-    
+
     /**
      * Returns a collection of elements that can collide with the specified element.
      *
@@ -67,31 +67,33 @@
             }
         }
     }
-    
+
     /**
      * Returns a collection of elements that can collide with the specified element.
      *
      * @public
      */
-    LayoutRenderer.prototype.relayout = function() {    
-        this.tree.clear();
-        this.tree.insertAll(this.canvas.drawables);
-        
-        var collidables, collidable, collidableSize, drawable, drawableSize, i, j;
-        for (i = 0, drawableSize = this.canvas.drawables.length; i < drawableSize; i++) {
-            drawable = this.canvas.drawables[i];
-            // retrieve drawables that can collide.
-            collidables = this.tree.retrieve(drawable);
-            for (j = 0, collidableSize = collidables.length; j < collidableSize; j++) {
-                collidable = collidables[j];
+    LayoutRenderer.prototype.relayout = function() {
+        var drawables = this.canvas.drawables;
+        var tree = this.tree;
+
+        tree.clear();
+        tree.insertAll(drawables);
+
+        var targets, target, source, i, j;
+        for (i = 0; i < drawables.length; i++) {
+            source = drawables[i];
+            targets = tree.retrieve(source);
+            for (j = 0; j < targets.length; j++) {
+                target = targets[j];
                 // compute if the drawables do collide.
-                if (drawable !== collidable && drawable.getBounds().intersects(collidable.getBounds())) {
+                if (source.getBounds().intersects(target.getBounds())) {
                     console.log('collide');
                 }
             }
         }
     }
-    
+
     // add LayoutRenderer to namespace.
     cardmaker.LayoutRenderer = LayoutRenderer;
 

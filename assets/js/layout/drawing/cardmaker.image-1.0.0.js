@@ -1,6 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
+
     /**
      * The Image class represents an image that can be drawn onto a {@link cardmaker.Canvas} object.
      *
@@ -16,7 +16,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The image to draw.
          *
@@ -24,39 +24,36 @@
          * @public
          */
         self.image = null;
-        
-        /**
-         * A flag that indicates if the image has been loaded.
-         *
-         * @type {Boolean}
-         * @public
-         */
-        self.loaded = false;
-        
+
         /**
          * Initialize the Image.
          *
          * @param {String} src - the URL of an image.
          * @private
          */
-        function init(src) {      
+        function init(image) {
             // call parent constructor.
             cardmaker.Drawable.call(self);
-        
-            self.image = new window.Image();
-            self.image.onload = function(event) {
-                self.loaded = true;                
-                self.invalidate.call(self);
-            };
-            self.image.src = src;
+
+            if (!(image instanceof window.Image)) {
+                throw new TypeError('Image expects a window.Image object.');
+            }
+
+            self.image = image;
+            self.setWidth(image.width);
+            self.setHeight(image.height);
+            self.setX(0);
+            self.setY(0);
+
+            self.invalidate();
         }
         init(src);
     }
-    
+
     // inherit from cardmaker.Drawable.
     Image.prototype = Object.create(cardmaker.Drawable.prototype);
     Image.prototype.constructor = Image;
-    
+
     /**
      * Draw the image onto the specified {@link cardmaker.Canvas}.
      *
@@ -64,18 +61,13 @@
      * @public
      */
     Image.prototype.onDraw = function(canvas) {
-        if (!this.loaded) {
-            return; // still loading image.
-        }
-        
-        // center the image.
-        var x = (canvas.width / 2) - (this.image.width / 2);
-        var y = (canvas.height / 2) - (this.image.height / 2);
-    
+        var image = this.image;
+        var bounds = this.getBounds();
+
         var ctx = canvas.getContext('2d');
-        ctx.drawImage(this.image, x, y);
+        ctx.drawImage(image, bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
     }
-    
+
     // add Image to namespace.
     cardmaker.Image = Image;
 

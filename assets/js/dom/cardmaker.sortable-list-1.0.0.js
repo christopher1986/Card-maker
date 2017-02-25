@@ -17,7 +17,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The list that is being decorated.
          *
@@ -25,7 +25,7 @@
          * @private
          */
         var decoratee = null;
-        
+
         /**
          * The element that is being dragged.
          *
@@ -33,7 +33,7 @@
          * @public
          */
         self.draggable = null;
-        
+
         /**
          * Returns the list that is being decorated.
          *
@@ -43,7 +43,7 @@
         self.getDecoratee = function() {
             return decoratee;
         }
-        
+
         /**
          * Initialize the SortableList.
          *
@@ -51,25 +51,25 @@
          * @throws {TypeError} if the specified argument is not a {@link cardmaker.List} object.
          * @private
          */
-        function init(list) {        
+        function init(list) {
             if (!(list instanceof cardmaker.List)) {
                 throw new TypeError('SortableList expects a cardmaker.List object.');
             }
 
             if (list instanceof cardmaker.ObservableList) {
-                list.addChangeListener(self.onListChange.bind(self)); 
+                list.addChangeListener(self.onListChange.bind(self));
             }
-            
+
             decoratee = list;
 
         }
         init(list);
     }
-    
+
     // inherit from cardmaker.List.
     SortableList.prototype = Object.create(cardmaker.List.prototype);
     SortableList.prototype.constructor = SortableList;
-    
+
     /**
      * Append the specified node to the end of the list.
      *
@@ -87,22 +87,22 @@
      * @param {Node[]} nodes the collection of nodes to append.
      * @return {Boolean} true if at least one node was appended, otherwise false.
      * @public
-     */    
+     */
     SortableList.prototype.addAll = function(nodes) {
         return this.getDecoratee().addAll(nodes);
     }
-    
+
     /**
      * Remove the node at the specified position from this list.
      *
      * @param {Number} index the index of the node to be removed.
      * @return {Node|null} the node that was removed, or null if no node was found.
      * @public
-     */    
+     */
     SortableList.prototype.removeByIndex = function(index) {
         return this.getDecoratee().removeByIndex(index);
     }
-    
+
     /**
      * Remove if present the specified node from this list.
      *
@@ -110,10 +110,10 @@
      * @return {Boolean} true if the node was removed, otherwise false.
      * @public
      */
-    SortableList.prototype.remove = function(node) {      
+    SortableList.prototype.remove = function(node) {
         return this.getDecoratee().remove(node);
     }
-    
+
     /**
      * Remove one or more nodes contained by the collection from this list.
      *
@@ -124,7 +124,7 @@
     SortableList.prototype.removeAll = function(nodes) {
         return this.getDecoratee().removeAll(nodes);
     }
-    
+
     /**
      * Insert an node at the specified index.
      *
@@ -147,7 +147,7 @@
     SortableList.prototype.contains = function(node) {
         return this.getDecoratee().contains(node);
     }
-    
+
     /**
      * Returns the index of the first occurrence of the specified node in this list.
      *
@@ -158,7 +158,7 @@
     SortableList.prototype.indexOf = function(node) {
         return this.getDecoratee().indexOf(node);
     }
-    
+
     /**
      * Returns the index of the last occurrence of the specified node in this list.
      *
@@ -169,7 +169,7 @@
     SortableList.prototype.lastIndexOf = function(node) {
         return this.getDecoratee().lastIndexOf(node);
     }
-    
+
     /**
      * Returns true if this list is empty.
      *
@@ -179,7 +179,7 @@
     SortableList.prototype.isEmpty = function() {
         return this.getDecoratee().isEmpty();
     }
-    
+
     /**
      * Remove all nodes contained by this list.
      *
@@ -188,7 +188,7 @@
     SortableList.prototype.clear = function() {
         this.getDecoratee().clear();
     }
-    
+
     /**
      * Returns the number of nodes contained within this list.
      *
@@ -198,7 +198,7 @@
     SortableList.prototype.size = function() {
         return this.getDecoratee().size();
     }
-    
+
     /**
      * Returns an array containing all nodes contained within this list.
      *
@@ -208,7 +208,7 @@
     SortableList.prototype.toArray = function() {
         return this.getDecoratee().toArray();
     }
-    
+
     /**
      * Tests whether the specified element is sortable.
      *
@@ -220,10 +220,10 @@
         if (this.isAllowed(element)) {
             sortable = (element.getAttribute('data-sortable') === 'true');
         }
-        
+
         return sortable;
     }
-    
+
     /**
      * Tests whether the specified element can be sortable.
      *
@@ -234,7 +234,7 @@
     SortableList.prototype.isAllowed = function(element) {
         return (element instanceof window.Element);
     }
-    
+
     /**
      * Allow the specified element to be sortable.
      *
@@ -244,47 +244,47 @@
     SortableList.prototype.enableSort = function(element) {
         if (!this.isAllowed(element)) {
             throw new TypeError('SortableList expects a window.Element object.');
-        }        
-        
+        }
+
         element.addEventListener('dragstart', this.onDragStart.bind(this));
         element.addEventListener('dragenter', this.onDragEnter.bind(this));
         element.addEventListener('dragover', this.onDragOver.bind(this));
         element.addEventListener('dragleave', this.onDragLeave.bind(this));
         element.addEventListener('drop', this.onDrop.bind(this));
         element.addEventListener('dragend', this.onDragEnd.bind(this));
-        
+
         element.setAttribute('data-sortable', 'true');
         element.setAttribute('draggable', 'true');
     }
-    
+
     SortableList.prototype.disableSort = function(element) {
         if (!this.isAllowed(element)) {
             throw new TypeError('SortableList expects a window.Element object.');
         }
-        
+
         element.removeEventListener('dragstart', this.onDragStart);
         element.removeEventListener('dragenter', this.onDragEnter);
         element.removeEventListener('dragover', this.onDragOver);
         element.removeEventListener('dragleave', this.onDragLeave);
         element.removeEventListener('drop', this.onDrop);
         element.removeEventListener('dragend', this.onDragEnd);
-        
+
         element.removeAttribute('data-sortable');
         element.removeAttribute('draggable');
     }
-    
+
     SortableList.prototype.onDragStart = function(event) {
         if (event.stopPropagation) {
             event.stopPropagation();
         }
 
         this.draggable = event.currentTarget;
-        
+
         event.currentTarget.classList.add('moving');
         event.dataTransfer.effectAllowed = 'move';
         event.dataTransfer.setData('text/html', event.currentTarget.innerHTML);
     }
-    
+
     SortableList.prototype.onDragOver = function(event) {
         if (event.preventDefault) {
             event.preventDefault();
@@ -293,15 +293,15 @@
         event.dataTransfer.dropEffect = 'move';
         return false;
     }
-    
+
     SortableList.prototype.onDragEnter = function(event) {
         event.currentTarget.classList.add('over');
     }
-    
+
     SortableList.prototype.onDragLeave = function(event) {
         event.currentTarget.classList.remove('over');
     }
-    
+
     SortableList.prototype.onDrop = function(event) {
         if (event.stopPropagation) {
             event.stopPropagation();
@@ -316,7 +316,7 @@
 
         return false;
     }
-    
+
     SortableList.prototype.onDragEnd = function(event) {
         event.currentTarget.style.opacity = '1';
         var parent = this.getDecoratee().getParent();
@@ -329,7 +329,7 @@
             }
         }
     }
-    
+
     /**
      * Change
      *
@@ -342,8 +342,8 @@
             this.disableSort(event.node);
         }
     }
-    
+
     // add SortableList to namespace.
     cardmaker.SortableList = SortableList;
-    
+
 })(this, this.document, this.cardmaker = this.cardmaker || {});

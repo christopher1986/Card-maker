@@ -16,7 +16,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * An aggregate of listeners.
          *
@@ -24,7 +24,7 @@
          * @private
          */
         var listeners = null;
-        
+
         /**
          * The element that represents the user interface for this canvas.
          *
@@ -32,7 +32,7 @@
          * @public
          */
         self.canvas = null;
-        
+
         /**
          * The file manager responsible for uploading images.
          *
@@ -40,7 +40,7 @@
          * @public
          */
         self.fileManager = null;
-        
+
         /**
          * The layout renderer draws objects onto the canvas.
          *
@@ -48,7 +48,7 @@
          * @public
          */
         self.layoutRenderer = null;
-        
+
         /**
          * A collection of drawable objects for this canvas.
          *
@@ -56,7 +56,7 @@
          * @public
          */
         self.drawables = [];
-        
+
         /**
          * A collection of panels attached to this canvas.
          *
@@ -64,7 +64,7 @@
          * @public
          */
         self.panels = [];
-        
+
         /**
          * Initialize a new Canvas.
          *
@@ -76,10 +76,10 @@
             if (!(canvas instanceof window.HTMLCanvasElement)) {
                 throw new TypeError('Canvas expects an HTMLCanvasElement.');
             }
-            
+
             // call parent constructor.
             cardmaker.MVCObject.call(self);
-            
+
             self.canvas = canvas;
             self.fileManager = new cardmaker.FileManager();
             self.fileManager.on('upload-finished', self.onUploadFinished.bind(self));
@@ -90,11 +90,11 @@
         }
         init(canvas);
     }
-    
+
     // inherit from cardmaker.MVCObject.
     Canvas.prototype = Object.create(cardmaker.MVCObject.prototype);
     Canvas.prototype.constructor = Canvas;
-    
+
     /**
      * Add the specified panel to this canvas.
      *
@@ -106,17 +106,17 @@
         if (!(panel instanceof cardmaker.Panel)) {
             throw new TypeError('Canvas expects a cardmaker.Panel object.');
         }
-        
+
         var oldSize = this.panels.length;
         var newSize = this.panels.push(panel);
-        
+
         if (newSize > oldSize) {
-            panel.setCanvas(this);        
+            panel.setCanvas(this);
         }
-        
+
         return (newSize > oldSize);
     }
-    
+
     /**
      * Removes the first occurrence of the specified panel from this canvas.
      *
@@ -128,7 +128,7 @@
         if (!(panel instanceof cardmaker.Panel)) {
             throw new TypeError('Canvas expects a cardmaker.Panel object.');
         }
-        
+
         var index, size, exists;
         for (index = 0, size = this.panels.length; index < size; index++) {
             exists = (this.panels[index] === panel);
@@ -137,10 +137,10 @@
                 break;
             }
         }
-        
+
         return exists;
     }
-    
+
     /**
      * Add the specified drawable to this canvas.
      *
@@ -150,7 +150,7 @@
      */
     Canvas.prototype.addDrawable = function(drawable) {
         if (!(drawable instanceof cardmaker.Drawable)) {
-            throw new TypeError('Canvas expects a cardmaker.Drawable object.');            
+            throw new TypeError('Canvas expects a cardmaker.Drawable object.');
         }
 
         var oldSize = this.drawables.length;
@@ -162,9 +162,10 @@
                 self.layoutRenderer.relayout();
                 this.draw(self.canvas);
             });
+            self.layoutRenderer.relayout();
             drawable.draw(this.canvas);
         }
-        
+
         return (newSize > oldSize);
     }
 
@@ -179,7 +180,7 @@
         if (!(drawable instanceof cardmaker.Drawable)) {
             throw new TypeError('Canvas expects a cardmaker.Drawable object.');
         }
-        
+
         var index, size, exists;
         for (index = 0, size = this.drawables.length; index < size; index++) {
             exists = (this.drawables[index] === drawable);
@@ -188,10 +189,10 @@
                 break;
             }
         }
-        
+
         return exists;
     }
-    
+
     /**
      * Add the specified {@link HTMLElement} as a file handler.
      *
@@ -203,7 +204,7 @@
     Canvas.prototype.addFileManager = function(element) {
         return this.fileManager.addElement(element);
     }
-    
+
     /**
      * Remove the specified {@link HTMLElement} as a file handler.
      *
@@ -214,7 +215,7 @@
     Canvas.prototype.removeFileManager = function(element) {
         this.fileManager.removeElement(element);
     }
-    
+
     /**
      * Remove the specified {@link HTMLElement} as a file handler.
      *
@@ -225,7 +226,7 @@
     Canvas.prototype.removeFileManager = function(element) {
         this.fileManager.removeElement(element);
     }
-    
+
     /**
      * Add the uploaded image as a drawable object to the canvas.
      *
@@ -233,10 +234,14 @@
      * @public
      */
     Canvas.prototype.onUploadFinished = function(event) {
-        var drawable = new cardmaker.Image(event.target.result);
-        this.addDrawable(drawable);
+        var self = this;
+        var image = new window.Image();
+        image.src = event.target.result;
+        image.onload = function(event) {
+            self.addDrawable(new cardmaker.Image(this));
+        };
     }
-    
+
     /**
      * Returns a {@link cardmaker.Bounds} object containing the canvas boundaries.
      *
@@ -245,7 +250,7 @@
     Canvas.prototype.getBounds = function() {
         return new cardmaker.Bounds(0, 0, this.canvas.width, this.canvas.height);
     }
-    
+
     // add Canvas to namespace.
     cardmaker.Canvas = Canvas;
 

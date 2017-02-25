@@ -1,6 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
+
     /**
      * The Layer represents a single image, shape or other object on the canvas.
      *
@@ -16,7 +16,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The image source.
          *
@@ -24,7 +24,7 @@
          * @public
          */
         self.src = '';
-        
+
         /**
          * The layer text.
          *
@@ -32,7 +32,7 @@
          * @public
          */
         self.text = '';
-        
+
         /**
          * Initialize the Layer.
          *
@@ -46,20 +46,20 @@
         }
         init(src, text);
     }
-    
+
     /**
      * Return an {@link HTMLElement} that represents this layer.
      *
      * @return {HTMLElement} the element to display to the user.
      * @public
      */
-    Layer.prototype.toHtml = function() {    
+    Layer.prototype.toHtml = function() {
         var image = document.createElement('img');
         image.src = this.src;
         image.style.maxWidth = '100%';
         image.style.height = 'auto';
         image.style.width = 'auto';
-        
+
         // thumbnail
         var leftCol = document.createElement('div');
         leftCol.className = 'column col-image';
@@ -77,10 +77,10 @@
         var item = document.createElement('div');
         item.className = 'list-item layer-item';
         item.appendChild(row);
-        
+
         return item;
     }
-    
+
     /**
      * The LayerPanel displays the layers present on the canvas. A layer may hold an image, shape or any other object that the canvas can draw.
      *
@@ -96,9 +96,9 @@
          * @private
          */
         var self = this;
-        
+
         self.list = null;
-        
+
         /**
          * Initialize the LayerPanel.
          *
@@ -110,18 +110,18 @@
             if (!(element instanceof window.HTMLElement)) {
                 throw new TypeError('LayerPanel expects an HTMLElement.');
             }
-            
+
             var layers = document.createElement('div');
-                layers.className = 'layer-list'; 
-            
+            layers.className = 'layer-list'; 
+
             // call parent constructor.
             cardmaker.Panel.call(self, element.appendChild(layers));
-            
+
             self.list = new cardmaker.SortableList(new cardmaker.ObservableList(layers));
         }
         init(element);
     }
-    
+
     // inherit from cardmaker.Panel.
     LayerPanel.prototype = Object.create(cardmaker.Panel.prototype);
     LayerPanel.prototype.constructor = LayerPanel;
@@ -137,16 +137,16 @@
         if (oldCanvas instanceof cardmaker.Canvas) {
             oldCanvas.fileManager.off('upload-finished', this.onUploadFinished);
         }
-        
+
         // call parent method.
         cardmaker.Panel.prototype.setCanvas.call(this, canvas);
-        
+
         var canvas = this.getCanvas();
         if (canvas instanceof cardmaker.Canvas) {
             canvas.fileManager.on('upload-finished', this.onUploadFinished.bind(this));
         }
     }
-    
+
     /**
      * Create a new layer for the newly created drawable.
      *
@@ -162,5 +162,5 @@
 
     // add LayerPanel to namespace.
     cardmaker.LayerPanel = LayerPanel;
-    
+
 })(this, this.document, this.cardmaker = this.cardmaker || {});

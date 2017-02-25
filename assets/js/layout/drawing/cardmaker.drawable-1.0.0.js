@@ -1,6 +1,6 @@
 (function(window, document, cardmaker, undefined) {
     "use strict";
-    
+
     /**
      * The InvalidateEvent contains information about a Drawable object that has been invalidated.
      *
@@ -16,7 +16,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The Drawable that is invalid.
          *
@@ -24,7 +24,7 @@
          * @public
          */
         self.target = null;
-        
+
         /**
          * Initialize the InvalidateEvent.
          *
@@ -35,16 +35,16 @@
         function init(type, target) {
             // call parent constructor.
             cardmaker.Event.call(self, type);
-        
+
             self.target = target;
         }
         init(type, target);
     }
-    
-    // inherit from cardmaker.Event. 
+
+    // inherit from cardmaker.Event.
     InvalidateEvent.prototype = Object.create(cardmaker.Event.prototype);
     InvalidateEvent.prototype.constructor = InvalidateEvent;
-    
+
     /**
      * The Drawable class represents "something that can be drawn" onto a {@link cardmaker.Canvas} object.
      *
@@ -60,7 +60,7 @@
          * @private
          */
         var self = this;
-        
+
         /**
          * The boundaries of this drawable.
          *
@@ -68,7 +68,7 @@
          * @private
          */
         self.bounds = new cardmaker.Bounds();
-        
+
         /**
          * A drawable object that contains this drawable.
          *
@@ -76,15 +76,15 @@
          * @private
          */
         self.parent = null;
-        
+
         /**
-         * A transformation matrix. 
+         * A transformation matrix.
          *
          * @typedef {cardmaker.Matrix}
          * @private
          */
         self.matrix = null;
-        
+
         /**
          * A lock that prevents the drawable from being invalidated while drawing.
          *
@@ -92,7 +92,7 @@
          * @private
          */
         self.lock = new cardmaker.Lock();
-        
+
         /**
          * A flag that determines whether this drawable should be redrawn.
          *
@@ -100,7 +100,7 @@
          * @private
          */
         self.valid = false;
-        
+
         /**
          * Initialize the Drawable.
          *
@@ -115,15 +115,15 @@
         }
         init();
     }
-    
+
     // inherit from cardmaker.MVCObject.
     Drawable.prototype = Object.create(cardmaker.MVCObject.prototype);
     Drawable.prototype.constructor = Drawable;
-    
+
     /**
      * Draw this {@link cardmaker.Drawable} onto the specified {@link cardmaker.Canvas}.
      *
-     * The draw method ensures that the {@link cardmaker.Drawable#invalidate()} method is locked 
+     * The draw method ensures that the {@link cardmaker.Drawable#invalidate()} method is locked
      * for the duration of the draw operation and this allows the properties of a drawable to be
      * changed from the {@link cardmaker.onDraw(canvas}} method.
      *
@@ -136,10 +136,10 @@
             this.onDraw(canvas);
             this.lock.unlock();
         }
-        
+
         this.valid = true;
     }
-    
+
     /**
      * Draw this {@link cardmaker.Drawable} onto the specified {@link cardmaker.Canvas}.
      *
@@ -153,7 +153,7 @@
     Drawable.prototype.onDraw = function(canvas) {
         throw new Error('This method must be implemented by a subclass.');
     }
-    
+
     /**
      * Invalidate this {@link cardmaker.Drawable} and redraw it at some point in the future.
      *
@@ -164,7 +164,7 @@
         this.valid = false;
         this.dispatch('invalidate', new InvalidateEvent('invalidate', this));
     }
-    
+
     /**
      * Determines whether this drawable needs to be redrawn.
      *
@@ -173,7 +173,7 @@
     Drawable.prototype.isValid = function() {
         return this.valid;
     }
-    
+
     /**
      * Set the parent of this drawable.
      *
@@ -185,10 +185,10 @@
         if (!(parent instanceof cardmaker.DrawableContainer) || parent !== null ) {
             throw new TypeError('Drawable expects parent to be a cardmaker.DrawableContainer object');
         }
-        
+
         this.parent = parent;
     }
-    
+
     /**
      * Returns if present the parent this drawable.
      *
@@ -198,7 +198,7 @@
     Drawable.prototype.getParent = function() {
         return this.parent;
     }
-    
+
     /**
      * Returns a {@link cardmaker.Bounds} object containing the global boundaries.
      *
@@ -207,13 +207,13 @@
     Drawable.prototype.getBounds = function() {
         var bounds = this.getLocalBounds();
         var point  = this.localToGlobal(cardmaker.Point.createFromBounds(bounds));
-            
+
         bounds.setMinX(point.getX());
         bounds.setMinY(point.getY());
-        
+
         return bounds;
     }
-    
+
     /**
      * Returns a {@link cardmaker.Bounds} object containing the local boundaries.
      *
@@ -230,22 +230,22 @@
             bounds.setWidth(this.getWidth());
             bounds.setHeight(this.getHeight());
         }
-        
+
         return bounds;
     }
-    
+
     /**
-     * Set the x coordinate of this drawable which will be relative to the parent location. 
+     * Set the x coordinate of this drawable which will be relative to the parent location.
      *
      * @param {Number} x - the x coordinates of the drawable.
      * @public
      */
-    Drawable.prototype.setX= function(x) {        
+    Drawable.prototype.setX= function(x) {
         this.bounds.setMinX(x);
     }
-    
+
     /**
-     * Returns the x coordinate of this drawable which is relative to the parent location. 
+     * Returns the x coordinate of this drawable which is relative to the parent location.
      *
      * @return {Number} the x coordinates of the drawable.
      * @public
@@ -253,19 +253,19 @@
     Drawable.prototype.getX = function() {
         return this.bounds.getMinX();
     }
-    
+
     /**
-     * Set the y coordinate of this drawable which will be relative to the parent location. 
+     * Set the y coordinate of this drawable which will be relative to the parent location.
      *
      * @param {Number} y - the y coordinates of the drawable.
      * @public
      */
-    Drawable.prototype.setY = function(y) {       
+    Drawable.prototype.setY = function(y) {
         this.bounds.setMinY(y);
     }
-    
+
     /**
-     * Returns the y coordinate of this drawable which is relative to the parent location. 
+     * Returns the y coordinate of this drawable which is relative to the parent location.
      *
      * @return {Number} the y coordinates of the drawable.
      * @public
@@ -273,16 +273,16 @@
     Drawable.prototype.getY = function() {
         return this.bounds.getMinY();
     }
-    
+
     /**
      * Set the width of this drawable in pixels.
      *
      * @param {Number} width - the width of the drawable.
      */
-    Drawable.prototype.setWidth = function(width) {      
+    Drawable.prototype.setWidth = function(width) {
         this.bounds.setWidth(width);
     }
-    
+
     /**
      * Returns the width of this drawable in pixels.
      *
@@ -291,7 +291,7 @@
     Drawable.prototype.getWidth = function() {
         return this.bounds.getWidth();
     }
-    
+
     /**
      * Set the height of this drawable in pixels.
      *
@@ -300,7 +300,7 @@
     Drawable.prototype.setHeight = function(height) {
         this.bounds.setHeight(height);
     }
-    
+
     /**
      * Returns the height of this drawable in pixels.
      *
@@ -309,7 +309,7 @@
     Drawable.prototype.getHeight = function() {
         return this.bounds.getHeight();
     }
-    
+
     /**
      * Converts the point object from the drawable (local) coordinates to the canvas (global) coordinates.
      *
@@ -319,14 +319,14 @@
      */
     Drawable.prototype.localToGlobal = function(point) {
         var parent = this.getParent();
-        while (parent instanceof cardmaker.Drawable) {            
+        while (parent instanceof cardmaker.Drawable) {
             point  = point.add(parent.bounds.getMinX(), parent.bounds.getMinY());
             parent = parent.getParent();
         }
-        
+
         return point;
     }
-    
+
     /**
      * Converts the point object from the canvas (global) coordinates to the drawable (local) coordinates.
      *
@@ -340,10 +340,10 @@
             point  = point.subtract(parent.bounds.getMinX(), parent.bounds.getMinY());
             parent = parent.getParent();
         }
-        
+
         return point;
     }
-    
+
     /**
      * Invalidate the drawable when it's properties change.
      *
@@ -357,7 +357,7 @@
             this.invalidate();
         }
     }
-    
+
     // add Drawable to namespace.
     cardmaker.Drawable = Drawable;
     // add InvalidateEvent to namespace.
