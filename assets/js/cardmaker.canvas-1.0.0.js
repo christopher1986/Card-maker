@@ -238,7 +238,8 @@
         var image = new window.Image();
         image.src = event.target.result;
         image.onload = function(event) {
-            self.addDrawable(new cardmaker.Image(this));
+            var drawable = new cardmaker.Image(this);
+            self.addDrawable(new cardmaker.DraggableDrawable(drawable));
         };
     }
 
