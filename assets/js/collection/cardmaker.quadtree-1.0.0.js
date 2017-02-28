@@ -138,10 +138,11 @@
      */
     Node.prototype.retrieve = function(element, collidables) {
         collidables = (cardmaker.ArrayUtil.isArray(collidables)) ? collidables : [];
+
         if (this.isAllowed(element)) {
             if (this.hasQuadrants()) {
                 var index = this.getIndex(element);
-                if (index !== 0) {
+                if (index !== -1) {
                     return this.quadrants[index].retrieve(element, collidables);
                 }
             }
@@ -196,6 +197,7 @@
      */
     Node.prototype.getIndex = function(element) {
         var bounds = element.getBounds();
+
         if (this.hasQuadrants()) {
             var index, size, quadrant;
             for (index = 0, size = this.quadrants.length; index < size; index++) {
