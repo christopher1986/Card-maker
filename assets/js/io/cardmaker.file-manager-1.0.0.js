@@ -150,6 +150,15 @@
     }
     
     /**
+     * 
+     *
+     *
+     */
+    FileManager.prototype.onUploadFinished = function(event) {
+
+    }
+    
+    /**
      * Redispatch events from the {@link cardmaker.FileUploader} object.
      *
      * @param {cardmaker.Event} event - the event that will be dispatched.
