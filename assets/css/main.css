@@ -22,7 +22,7 @@ img {
 
 /*
 ** Row
-*/       
+*/
 .row {
     margin: 0;
     padding: 0;
@@ -37,7 +37,7 @@ img {
     height: 0;
 }
 
-.row .column { 
+.row .column {
     margin: 0;
     padding: 0;
     float: left;
@@ -53,8 +53,8 @@ img {
 
 .cardmaker-container .col-canvas {
     padding-right: 10px;
-    width: 1200px; 
-    height: 600px; 
+    width: 1200px;
+    height: 700px; 
     overflow: scroll;
 }
 
@@ -98,7 +98,7 @@ img {
     border: 1px solid black;
     vertical-align: middle;
     -webkit-user-drag: none;
-            user-drag: none; 
+            user-drag: none;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
@@ -108,4 +108,3 @@ img {
 .layer-list .list-item .col-text {
     padding-left: 10px;
 }
-
