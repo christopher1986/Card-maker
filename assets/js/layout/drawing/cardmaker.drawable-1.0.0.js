@@ -182,7 +182,7 @@
      * @public
      */
     Drawable.prototype.setParent = function(parent) {
-        if (!(parent instanceof cardmaker.DrawableContainer) || parent !== null ) {
+        if (!(parent instanceof cardmaker.DrawableContainer) && parent !== null ) {
             throw new TypeError('Drawable expects parent to be a cardmaker.DrawableContainer object');
         }
 
