@@ -23,7 +23,7 @@
          * @type {HTMLCanvasElement}
          * @private
          */
-        self.canvas = null;
+        self.canvasElement = null;
 
         /**
          * The file manager responsible for uploading images.
@@ -64,10 +64,10 @@
             // call parent constructor.
             cardmaker.MVCObject.call(self);
 
-            self.canvas = canvas;
-            self.stage = new cardmaker.Stage(self);
+            self.canvasElement = canvas;
             self.fileManager = new cardmaker.FileManager();
             self.fileManager.on('upload-finished', self.onUploadFinished.bind(self));
+            self.stage = new cardmaker.Stage(self);
 
             var listeners = new cardmaker.ListenerAggregate(self);
             listeners.attach(document);
@@ -78,6 +78,30 @@
     // inherit from cardmaker.MVCObject.
     Canvas.prototype = Object.create(cardmaker.MVCObject.prototype);
     Canvas.prototype.constructor = Canvas;
+
+    /**
+     * Register a new listener listener to the underlying HTML canvas element.
+     *
+     * @param {String} type A string representing the event type to remove.
+     * @param {Callback} listener The event listener function that receives notifications.
+     * @param {Boolean} useCapture Specifies whether the listener is a capturing listener or not.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener}
+     */
+    Canvas.prototype.addEventListener = function(type, listener, useCapture) {
+        this.canvasElement.addEventListener(type, listener, useCapture);
+    }
+
+    /**
+     * Remove the event listener previously registered with the underlying HTML canvas element.
+     *
+     * @param {String} type A string representing the event type to remove.
+     * @param {Callback} listener The event listener function to remove.
+     * @param {Boolean} useCapture Specifies whether the listener is a capturing listener or not.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener}
+     */
+    Canvas.prototype.removeEventListener = function(type, listener, useCapture) {
+        this.canvasElement.removeEventListener(type, listener, useCapture);
+    }
 
     /**
      * Add the specified panel to this canvas.
@@ -161,7 +185,7 @@
         image.onload = function(event) {
             var drawable = new cardmaker.Image(this);
             self.stage.addChild(new cardmaker.DraggableDrawable(drawable));
-            self.stage.draw(self.canvas);
+            self.stage.draw(self.canvasElement);
         };
     }
 

@@ -39,6 +39,13 @@
             cardmaker.DrawableContainer.call(self);
 
             self.canvas = canvas;
+            self.canvas.addEventListener('click', function(e) {
+                var rect = this.getBoundingClientRect();
+                var x = event.clientX - rect.left;
+                var y = event.clientY - rect.top;
+
+                self.pick(new cardmaker.Point(x, y));
+            });
         }
         init(canvas);
     }
@@ -46,6 +53,17 @@
     // inherit from cardmaker.DrawableContainer.
     Stage.prototype = Object.create(cardmaker.DrawableContainer.prototype);
     Stage.prototype.constructor = Stage;
+
+    /**
+     * Returns if present the top-most drawable that contains the given coordinates.
+     *
+     * @return {cardmaker.Point} The location (x,y) in a two-dimensional coordinate space.
+     * @return {cardmaker.Drawable|null} The drawable at the given location, or null on failure.
+     * @see {@link http://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element#answer-5932203}
+     */
+    Stage.prototype.pick = function(point) {
+        console.log(point);
+    }
 
     // add Stage to namespace.
     cardmaker.Stage = Stage;
